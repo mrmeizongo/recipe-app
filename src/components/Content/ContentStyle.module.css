@@ -1,0 +1,11 @@
+.Container {
+   margin-top: 200px;
+   min-width: 400px;
+   height: 100px;
+}
+
+.Form {}
+
+.Selector {
+   width: fit-content;
+}
