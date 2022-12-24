@@ -1,8 +1,8 @@
 import React from "react";
 
-const Select = ({ children, className, disabled }) => {
+const Select = ({ children, className, disabled, id }) => {
 	return (
-		<select disabled={disabled} className={className}>
+		<select className={className} disabled={disabled} id={id}>
 			{children}
 		</select>
 	);

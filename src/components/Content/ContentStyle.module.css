@@ -1,11 +1,11 @@
 .Container {
-   margin-top: 200px;
    min-width: 400px;
-   height: 100px;
+   height: 200px;
+   background-color: white;
 }
 
 .Form {}
 
 .Selector {
-   width: fit-content;
+   min-width: fit-content;
 }

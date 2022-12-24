@@ -11,7 +11,7 @@ function App() {
 				<TitleBar />
 			</header>
 			<main
-				className={`${Appstyle.MainBody} d-flex flex-column align-items-center`}
+				className={`${Appstyle.MainBody} d-flex flex-column align-items-center justify-content-center`}
 			>
 				<Content />
 			</main>

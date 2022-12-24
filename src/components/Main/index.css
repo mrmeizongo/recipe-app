@@ -39,7 +39,7 @@ body {
    min-height: 100vh;
    text-rendering: optimizeSpeed;
    line-height: 1.5;
-   background: center / contain no-repeat linear-gradient(154deg, hsl(0, 0%, 90%) 50%, hsl(45, 99%, 64%) 50%);
+   background: center / contain no-repeat linear-gradient(154deg, hsl(0, 0%, 90%) 50%, hsl(216, 76%, 61%) 50%);
 }
 
 /* A elements that don't have a class get default styles */
