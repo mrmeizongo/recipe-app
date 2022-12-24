@@ -1,11 +1,16 @@
 .Container {
-   min-width: 400px;
-   height: 200px;
-   background-color: white;
+	min-width: 100px;
+	width: 800px;
+	height: fit-content;
 }
 
-.Form {}
+.Query {
+	min-width: 300px;
+}
 
-.Selector {
-   min-width: fit-content;
+.Icon {
+	object-fit: contain;
+	width: auto;
+	height: auto;
+	background: transparent;
 }
