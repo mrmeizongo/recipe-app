@@ -6,6 +6,7 @@
 
 .Query {
 	min-width: 300px;
+	transition: all 0.5s;
 }
 
 .Icon {
@@ -13,4 +14,9 @@
 	width: auto;
 	height: auto;
 	background: transparent;
+}
+
+.Select {
+	margin-top: 10px;
+	margin-bottom: 10px;
 }

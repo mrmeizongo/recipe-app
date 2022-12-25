@@ -1,21 +1,13 @@
 import React from "react";
 
-const Select = ({
-	children,
-	className,
-	disabled,
-	id,
-	initialOption,
-	handleOnChange,
-}) => {
+const Select = ({ children, className, disabled, id, onChange }) => {
 	return (
 		<select
-			className={`${className} form-select form-select`}
+			className={`${className}`}
 			disabled={disabled}
 			id={id}
-			onChange={handleOnChange}
+			onChange={onChange}
 		>
-			{initialOption}
 			{children}
 		</select>
 	);

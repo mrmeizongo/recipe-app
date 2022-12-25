@@ -5,4 +5,6 @@ export const recipeInitials = Object.keys(RecipeNames).map((e) =>
 	e.toUpperCase()
 );
 
-export function getRecipeNames(initial) {}
+export function getRecipeNames(initial) {
+	return RecipeNames[`${initial.toLowerCase()}`];
+}
