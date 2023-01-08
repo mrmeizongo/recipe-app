@@ -1,3 +1,11 @@
-.TitleBar {}
+.TitleBar {
+}
 
-.Collapse {}
+.Link {
+	text-decoration: none;
+	color: black;
+}
+
+.Link i {
+	color: hsl(182, 34%, 57%);
+}
