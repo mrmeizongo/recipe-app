@@ -1,11 +1,24 @@
 .TitleBar {
+	height: inherit;
+	border-bottom: 1px dotted #ced4da;
 }
 
 .Link {
 	text-decoration: none;
-	color: black;
 }
 
 .Link i {
-	color: hsl(182, 34%, 57%);
+	color: hsl(207, 82%, 52%);
+}
+
+.Navigation {
+	flex-grow: 1;
+}
+
+.Search {
+	flex-grow: 2;
+}
+
+.Collapse {
+	flex-grow: 1;
 }

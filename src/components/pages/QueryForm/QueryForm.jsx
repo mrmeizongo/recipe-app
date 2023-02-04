@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ContentStyle from "./QueryFormStyle.module.css";
-import ChefIcon from "../../assets/chef-icon.png";
-import { recipeInitials, getRecipeNames } from "../../helper/RecipeHelper";
+import ChefIcon from "../../../assets/chef-icon.png";
+import { recipeInitials, getRecipeNames } from "../../../helper/RecipeHelper";
 
 const SimpleSelect = ({ placeHolder, onChange, content }) => {
 	return (

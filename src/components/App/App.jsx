@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Appstyle from "./AppStyle.module.css";
 import TitleBar from "../TitleBar/TitleBar.jsx";
-import QueryForm from "../QueryForm/QueryForm.jsx";
+import QueryForm from "../pages/QueryForm/QueryForm.jsx";
 import Footer from "../Footer/Footer.jsx";
 import Recipes from "../pages/Recipes/Recipes";
 
@@ -14,11 +14,11 @@ function App() {
 	return (
 		<div className={`${Appstyle.App} container`}>
 			<Router>
-				<header className={`${Appstyle.Header}`}>
+				<header className={`${Appstyle.Header} p-2`}>
 					<TitleBar />
 				</header>
 				<main
-					className={`${Appstyle.MainBody} d-flex flex-column align-items-center justify-content-start`}
+					className={`${Appstyle.MainBody} d-flex flex-column align-items-center justify-content-between`}
 				>
 					<Routes>
 						<Route
