@@ -11,10 +11,11 @@ function App() {
 		recipeName: {},
 		recipeList: [],
 	});
+
 	return (
 		<div className={`${Appstyle.App} container`}>
 			<Router>
-				<header className={`${Appstyle.Header} p-2`}>
+				<header className={`${Appstyle.Header}`}>
 					<TitleBar />
 				</header>
 				<main

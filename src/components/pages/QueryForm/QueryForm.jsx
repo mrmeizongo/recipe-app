@@ -6,23 +6,21 @@ import { recipeInitials, getRecipeNames } from "../../../helper/RecipeHelper";
 
 const SimpleSelect = ({ placeHolder, onChange, content }) => {
 	return (
-		<div className="d-flex flex-row">
-			<select
-				className={`${ContentStyle.Select} form-select rounded-5`}
-				onChange={onChange}
-			>
-				<option defaultValue={true} value={"defaultValue"}>
-					{placeHolder}
-				</option>
-				{content.map((val) => {
-					return (
-						<option key={val} value={val}>
-							{val}
-						</option>
-					);
-				})}
-			</select>
-		</div>
+		<select
+			className={`${ContentStyle.Select} form-select rounded-5`}
+			onChange={onChange}
+		>
+			<option defaultValue={true} value={"defaultValue"}>
+				{placeHolder}
+			</option>
+			{content.map((val, index) => {
+				return (
+					<option key={index.toString()} value={val}>
+						{val}
+					</option>
+				);
+			})}
+		</select>
 	);
 };
 
@@ -41,7 +39,9 @@ const QueryForm = ({ handleRecipeNames }) => {
 		changeFormData((prev) => {
 			if (e.target.value == "defaultValue") {
 				return { ...prev, show: false, submit: false, initial: "", name: "" };
-			} else return { ...prev, show: true, initial: e.target.value, name: "" };
+			} else {
+				return { ...prev, show: true, initial: e.target.value };
+			}
 		});
 	}
 
@@ -53,7 +53,6 @@ const QueryForm = ({ handleRecipeNames }) => {
 			} else {
 				return {
 					...prev,
-					initial: prev.initial,
 					name: e.target.value,
 					submit: true,
 				};
