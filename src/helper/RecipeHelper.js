@@ -6,5 +6,6 @@ export const recipeInitials = Object.keys(RecipeNames).map((e) =>
 );
 
 export function getRecipeNames(initial) {
-	return RecipeNames[`${initial.toLowerCase()}`];
+	initial = initial.toLowerCase();
+	return RecipeNames[`${initial}`];
 }

@@ -4,34 +4,58 @@ import ChefIcon from "../../assets/chef-icon.png";
 import { recipeInitials, getRecipeNames } from "../../helper/RecipeHelper";
 
 const Content = () => {
-	const [displayNames, changeDisplayNames] = useState({
+	const [query, changeQuery] = useState({
 		init: "",
 		name: "",
-		show: false,
-		submit: false,
+		showGroup: false,
+		showRecipes: false,
+		showSubmit: false,
 	});
 
 	function handleOnInitChange(e) {
 		e.preventDefault();
-		changeDisplayNames((prev) => {
+		changeQuery((prev) => {
 			if (e.target.value == "defaultValue") {
-				return { ...prev, show: false, submit: false, init: "", name: "" };
-			} else return { ...prev, show: true, init: e.target.value, name: "" };
+				return {
+					...prev,
+					showGroup: false,
+					showSubmit: false,
+					showRecipes: false,
+					init: "",
+					name: "",
+				};
+			} else
+				return {
+					...prev,
+					showGroup: true,
+					showRecipes: false,
+					init: e.target.value,
+					name: "",
+				};
 		});
 	}
 
-	function handleOnNameChange(e) {
+	function handleOnGroupChange(e) {
 		e.preventDefault();
-		changeDisplayNames((prev) => {
+		changeQuery((prev) => {
 			if (e.target.value == "defaultValue") {
-				return { ...prev, show: false, submit: false, init: "", name: "" };
-			} else return { ...prev, name: e.target.value, submit: true };
+				return {
+					...prev,
+					showSubmit: false,
+					showRecipes: false,
+					name: "",
+				};
+			} else return { ...prev, name: e.target.value, showRecipes: true };
 		});
+	}
+
+	function handleOnRecipeSelect() {
+		return;
 	}
 
 	function handleOnSubmit(e) {
 		e.preventDefault();
-		console.log("Got request for recipe!", displayNames);
+		console.log("Got request for recipe!", query);
 	}
 
 	return (
@@ -42,14 +66,17 @@ const Content = () => {
 			<img src={ChefIcon} className={`${ContentStyle.Icon}`} />
 			<div
 				className={`${ContentStyle.Query} d-flex flex-column justify-content-center
-             align-items-start rounded-5 shadow p-4 gap-3`}
+             align-items-start rounded-4 shadow p-4 gap-3`}
 			>
 				<h2>Search over 4k Recipes</h2>
 				<h4>What do you want to eat today?</h4>
 				<form>
-					<label>Choose initial</label>
+					<label htmlFor="recipe-initial">
+						See <a href="/list">the list</a> or start with recipe initial
+					</label>
 					<select
 						className={`${ContentStyle.Select}  form-select`}
+						id="recipe-initial"
 						onChange={handleOnInitChange}
 					>
 						<option defaultValue={true} value={"defaultValue"}>
@@ -64,15 +91,15 @@ const Content = () => {
 						})}
 					</select>
 
-					{displayNames.show ? (
+					{query.showGroup ? (
 						<select
 							className={`${ContentStyle.Select} form-select`}
-							onChange={handleOnNameChange}
+							onChange={handleOnGroupChange}
 						>
 							<option defaultValue={true} value={"defaultValue"}>
-								Choose recipe name
+								Choose recipe group
 							</option>
-							{getRecipeNames(displayNames.init).map((element) => {
+							{getRecipeNames(query.init).map((element) => {
 								return (
 									<option key={element} value={element}>
 										{element}
@@ -82,7 +109,18 @@ const Content = () => {
 						</select>
 					) : null}
 
-					{displayNames.submit ? (
+					{query.showRecipes ? (
+						<select
+							className={`${ContentStyle.Select} form-select`}
+							onChange={handleOnRecipeSelect}
+						>
+							<option defaultValue={true} value={"defaultValue"}>
+								Choose recipe
+							</option>
+						</select>
+					) : null}
+
+					{query.showSubmit ? (
 						<button
 							type="submit"
 							className="btn btn-success"
