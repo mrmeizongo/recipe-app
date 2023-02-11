@@ -1,6 +1,7 @@
 .TitleBar {
-	min-height: 6vh;
-	box-shadow: 0px 1px hsl(0, 0%, 95%);
+	padding-top: 8px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid hsl(0, 0%, 95%);
 }
 
 .Link {
@@ -11,13 +12,8 @@
 	color: hsl(207, 82%, 52%);
 }
 
-.Navigation {
-	min-width: 30px;
-}
-
-.Collapse {
-}
-
 .Search {
-	flex: 1;
+	border: 1px solid hsl(0, 0%, 90%);
+	border-radius: 30px;
+	padding-left: 10px;
 }

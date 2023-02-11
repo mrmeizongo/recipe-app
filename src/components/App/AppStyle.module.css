@@ -3,10 +3,13 @@
 }
 
 .Header {
+	min-height: 5vh;
 }
 
 .MainBody {
+	min-height: 85vh;
 }
 
 .Footer {
+	min-height: 5vh;
 }

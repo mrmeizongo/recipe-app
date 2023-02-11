@@ -4,7 +4,7 @@ import Appstyle from "./AppStyle.module.css";
 import TitleBar from "../TitleBar/TitleBar.jsx";
 import QueryForm from "../pages/QueryForm/QueryForm.jsx";
 import Footer from "../Footer/Footer.jsx";
-import Recipes from "../pages/Recipes/Recipes";
+import Recipes from "../pages/Recipes/Recipes.jsx";
 
 function App() {
 	const [recipe, setRecipe] = useState({
