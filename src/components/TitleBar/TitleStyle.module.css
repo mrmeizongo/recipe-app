@@ -1,3 +1,42 @@
-.TitleBar {}
+.TitleBar {
+	padding-top: 8px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid hsl(0, 0%, 95%);
+}
 
-.Collapse {}
+.Link {
+	text-decoration: none;
+	color: hsl(0, 0%, 25%);
+}
+
+.Link:hover {
+	transition: all 0.2s ease-out;
+	color: hsl(207, 100%, 40%);
+}
+
+.Search {
+	flex: 1;
+	border: 1px solid hsl(0, 0%, 90%);
+	border-radius: 30px;
+	padding-left: 10px;
+}
+
+.Collapse {
+	position: absolute;
+	min-height: 50px;
+	min-width: 50px;
+	padding: 8px;
+	border-radius: 8px;
+	background-color: aliceblue;
+	margin-top: 10px;
+	margin-right: 10px;
+	box-shadow: 0 5px 15px hsl(0, 0%, 85%);
+	right: 0;
+}
+
+.CollapseButton {
+	background-color: transparent;
+	border: none;
+	padding: 0;
+	color: hsl(0, 0%, 25%);
+}

@@ -1,14 +1,15 @@
-.App {}
+.App {
+	min-height: 100vh;
+}
 
 .Header {
-   height: 5vh;
+	min-height: 5vh;
 }
 
 .MainBody {
-   min-height: 90vh;
+	min-height: 85vh;
 }
 
 .Footer {
-   height: 5vh;
-   background-color: transparent;
+	min-height: 5vh;
 }
