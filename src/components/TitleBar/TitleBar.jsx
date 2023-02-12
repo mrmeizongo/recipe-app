@@ -75,15 +75,15 @@ const TitleBar = () => {
 					>
 						<i className="fa-solid fa-ellipsis fa-xl"></i>
 					</button>
+					{collapse ? (
+						<Collapse
+							className={`${TitleStyle.Collapse}`}
+							HandleCollapse={HandleCollapse}
+						/>
+					) : null}
 				</div>
 			</nav>
 			{inputFocus ? <Options removeFocus={removeFocus} /> : null}
-			{collapse ? (
-				<Collapse
-					className={`${TitleStyle.Collapse}`}
-					HandleCollapse={HandleCollapse}
-				/>
-			) : null}
 		</div>
 	);
 };

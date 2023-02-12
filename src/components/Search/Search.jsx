@@ -32,6 +32,8 @@ const Search = ({ inputFocus, setFocus }) => {
 					type="text"
 					name="search"
 					className="form-control bg-transparent border-0 p-1"
+					autoComplete="false"
+					autoFocus={false}
 					placeholder="Search recipes"
 					aria-label="Search"
 					aria-describedby="search"
