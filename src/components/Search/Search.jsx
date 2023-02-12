@@ -16,7 +16,7 @@ const Search = ({ inputFocus, setFocus }) => {
 	}
 
 	return (
-		<div className="d-flex flex-row align-items-center justify-content-center">
+		<div className="w-100 d-flex flex-row align-items-center justify-content-center">
 			{inputFocus ? null : (
 				<div>
 					<i className="fa-solid fa-magnifying-glass fa-sm"></i>

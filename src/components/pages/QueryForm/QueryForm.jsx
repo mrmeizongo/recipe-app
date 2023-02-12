@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ContentStyle from "./QueryFormStyle.module.css";
+import QueryFormStyle from "./QueryFormStyle.module.css";
 import ChefIcon from "../../../assets/chef-icon.png";
 import { recipeInitials, getRecipeNames } from "../../../helper/RecipeHelper";
 
 const SimpleSelect = ({ placeHolder, onChange, content }) => {
 	return (
-		<select
-			className={`${ContentStyle.Select} form-select rounded-5`}
-			onChange={onChange}
-		>
+		<select className="form-select rounded-5" onChange={onChange}>
 			<option defaultValue={true} value={"defaultValue"}>
 				{placeHolder}
 			</option>
@@ -90,12 +87,12 @@ const QueryForm = ({ handleRecipeNames }) => {
 
 	return (
 		<section
-			className={`${ContentStyle.Container} d-flex flex-column flex-md-row 
+			className={`${QueryFormStyle.Container} d-flex flex-column flex-md-row 
           align-items-center justify-content-around`}
 		>
-			<img src={ChefIcon} className={`${ContentStyle.Icon}`} />
+			<img src={ChefIcon} className={`${QueryFormStyle.Icon}`} />
 			<div
-				className={`${ContentStyle.Query} d-flex flex-column justify-content-center
+				className={`${QueryFormStyle.Query} d-flex flex-column justify-content-center
              align-items-start rounded-5 shadow p-4 gap-3`}
 			>
 				<h2>Search over 4k Recipes</h2>
@@ -118,7 +115,7 @@ const QueryForm = ({ handleRecipeNames }) => {
 					{formData.submit ? (
 						<button
 							type="button"
-							className="btn btn-success rounded-5"
+							className="btn btn-danger rounded-5"
 							onClick={handleOnSubmit}
 						>
 							See recipes
