@@ -18,9 +18,7 @@ function App() {
 				<header className={`${Appstyle.Header}`}>
 					<TitleBar />
 				</header>
-				<main
-					className={`${Appstyle.MainBody} d-flex flex-column align-items-center justify-content-between`}
-				>
+				<main className={`${Appstyle.MainBody}`}>
 					<Routes>
 						<Route
 							exact

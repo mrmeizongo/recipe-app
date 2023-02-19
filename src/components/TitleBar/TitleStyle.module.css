@@ -1,41 +1,41 @@
 .TitleBar {
-   padding-top: 8px;
-   padding-bottom: 8px;
-   border-bottom: 1px solid hsl(0, 0%, 95%);
+	padding-top: 8px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid hsl(0, 0%, 95%);
 }
 
 .Link {
-   text-decoration: none;
-   color: hsl(0, 0%, 25%);
+	text-decoration: none;
+	color: hsl(0, 0%, 25%);
 }
 
 .Link:hover {
-   transition: all 0.2s ease-out;
-   color: hsl(207, 100%, 40%);
+	transition: all 0.2s ease-out;
+	color: hsl(207, 100%, 40%);
 }
 
 .Search {
-   flex: 1;
-   border: 1px solid hsl(0, 0%, 90%);
-   border-radius: 30px;
-   padding-left: 10px;
+	flex: 1;
+	border: 1px solid hsl(0, 0%, 90%);
+	border-radius: 30px;
+	padding-left: 10px;
 }
 
 .Collapse {
-   position: absolute;
-   min-height: 100px;
-   min-width: 200px;
-   transform: translateX(-200px);
-   padding: 8px;
-   border: 1px solid hsl(0, 0%, 90%);
-   border-radius: 0 0 10px 10px;
-   background-color: white;
-   margin-top: 20px;
+	position: absolute;
+	min-height: 100px;
+	min-width: max-content;
+	transform: translateX(-100px);
+	padding: 10px;
+	border: 1px solid hsl(0, 0%, 90%);
+	border-radius: 0 0 10px 10px;
+	background-color: white;
+	margin-top: 20px;
 }
 
 .CollapseButton {
-   background-color: transparent;
-   border: none;
-   padding: 0;
-   color: hsl(0, 0%, 25%);
+	background-color: transparent;
+	border: none;
+	padding: 0;
+	color: hsl(0, 0%, 25%);
 }

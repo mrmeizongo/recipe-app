@@ -8,6 +8,10 @@
 	height: fit-content;
 }
 
+.Query strong {
+	color: hsl(207, 100%, 40%);
+}
+
 .Icon {
 	object-fit: contain;
 	width: auto;

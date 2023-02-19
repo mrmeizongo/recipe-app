@@ -18,10 +18,33 @@ const Collapse = ({ className, HandleCollapse }) => {
 		return cleanUp;
 	});
 
+	function HandleButton(e) {
+		try {
+			HandleCollapse(e);
+		} finally {
+			return false;
+		}
+	}
+
 	return (
 		<div className={className}>
-			<p>Option 1</p>
-			<p>Option 2</p>
+			<Link className={TitleStyle.Link} to={"/about"} onClick={HandleCollapse}>
+				About
+			</Link>
+			<Link
+				className={TitleStyle.Link}
+				to={"/random-recipe"}
+				onClick={HandleCollapse}
+			>
+				Random recipe
+			</Link>
+			<Link
+				className={TitleStyle.Link}
+				to={"/how-it-works"}
+				onClick={HandleCollapse}
+			>
+				How it works
+			</Link>
 		</div>
 	);
 };
@@ -68,16 +91,17 @@ const TitleBar = () => {
 					<Search inputFocus={inputFocus} setFocus={setFocus} />
 				</div>
 
-				<div className="d-block">
+				<div className="d-block position-relative">
 					<button
 						className={TitleStyle.CollapseButton}
+						type="button"
 						onClick={HandleCollapse}
 					>
 						<i className="fa-solid fa-ellipsis fa-xl"></i>
 					</button>
 					{collapse ? (
 						<Collapse
-							className={`${TitleStyle.Collapse}`}
+							className={`${TitleStyle.Collapse} d-flex flex-column justify-content-between`}
 							HandleCollapse={HandleCollapse}
 						/>
 					) : null}

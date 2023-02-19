@@ -25,8 +25,8 @@ const QueryForm = ({ handleRecipeNames }) => {
 	const [formData, changeFormData] = useState({
 		initial: "",
 		name: "",
-		show: false,
-		submit: false,
+		showRecipeName: false,
+		showSubmit: false,
 	});
 
 	const navigate = useNavigate();
@@ -35,9 +35,15 @@ const QueryForm = ({ handleRecipeNames }) => {
 		e.preventDefault();
 		changeFormData((prev) => {
 			if (e.target.value == "defaultValue") {
-				return { ...prev, show: false, submit: false, initial: "", name: "" };
+				return {
+					...prev,
+					showRecipeName: false,
+					showSubmit: false,
+					initial: "",
+					name: "",
+				};
 			} else {
-				return { ...prev, show: true, initial: e.target.value };
+				return { ...prev, showRecipeName: true, initial: e.target.value };
 			}
 		});
 	}
@@ -46,12 +52,18 @@ const QueryForm = ({ handleRecipeNames }) => {
 		e.preventDefault();
 		changeFormData((prev) => {
 			if (e.target.value == "defaultValue") {
-				return { ...prev, show: false, submit: false, initial: "", name: "" };
+				return {
+					...prev,
+					showRecipeName: false,
+					showSubmit: false,
+					initial: "",
+					name: "",
+				};
 			} else {
 				return {
 					...prev,
 					name: e.target.value,
-					submit: true,
+					showSubmit: true,
 				};
 			}
 		});
@@ -62,7 +74,7 @@ const QueryForm = ({ handleRecipeNames }) => {
 
 		const messageBody = {
 			initial: formData.initial,
-			name: formData.name,
+			name: formData.name[0].toLowerCase() + formData.name.substring(1),
 		};
 
 		fetch("http://192.168.1.165:8080/projects/recipe", {
@@ -78,8 +90,10 @@ const QueryForm = ({ handleRecipeNames }) => {
 				else console.log("There was an error fetching request from server");
 			})
 			.then((data) => {
-				console.log("Data:", data.body);
-				handleRecipeNames({ recipeName: messageBody, recipeList: data.body });
+				handleRecipeNames({
+					recipeName: messageBody,
+					recipeList: JSON.parse(data.body),
+				});
 				navigate("/recipes");
 			})
 			.catch((error) => console.error("Error: ", error));
@@ -95,7 +109,9 @@ const QueryForm = ({ handleRecipeNames }) => {
 				className={`${QueryFormStyle.Query} d-flex flex-column justify-content-center
              align-items-start rounded-5 shadow p-4 gap-3`}
 			>
-				<h2>Search over 4k Recipes</h2>
+				<h2>
+					Search over <strong>4k Recipes</strong>.
+				</h2>
 				<h4>What do you want to eat today?</h4>
 				<form className="d-flex flex-column gap-3">
 					<SimpleSelect
@@ -104,7 +120,7 @@ const QueryForm = ({ handleRecipeNames }) => {
 						content={recipeInitials}
 					/>
 
-					{formData.show ? (
+					{formData.showRecipeName ? (
 						<SimpleSelect
 							placeHolder={`Category starting with ${formData.initial}`}
 							onChange={handleOnNameChange}
@@ -112,7 +128,7 @@ const QueryForm = ({ handleRecipeNames }) => {
 						/>
 					) : null}
 
-					{formData.submit ? (
+					{formData.showSubmit ? (
 						<button
 							type="button"
 							className="btn btn-danger rounded-5"
