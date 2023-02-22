@@ -1,22 +1,26 @@
-import React, { useEffect } from "react";
+import React from "react";
+import RecipesStyle from "./RecipesStyle.module.css";
 
 const Recipe = ({ children }) => {
-	return <div className="d-inline m-2 bg-info rounded-2">{children}</div>;
+	return (
+		<button
+			className={`${RecipesStyle.Button} border border-secondary rounded-5 py-2 px-3`}
+		>
+			<div className="text-dark">{children}</div>
+		</button>
+	);
 };
 
 const Recipes = ({ recipes }) => {
-	useEffect(() => {
-		console.log(recipes);
-	});
 	return (
-		<div>
+		<div className={RecipesStyle.Body}>
 			<h1>Title: Results for Selection</h1>
-			<div className="container-fluid">
-				<div>
-					{recipes.recipeList.map((element) => {
-						return <Recipe>{element}</Recipe>;
-					})}
-				</div>
+			<div
+				className={`${RecipesStyle.Results} d-flex flex-row flex-wrap gap-1 mt-3`}
+			>
+				{recipes.recipeList.map((element, index) => {
+					return <Recipe key={index}>{element}</Recipe>;
+				})}
 			</div>
 		</div>
 	);

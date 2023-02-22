@@ -1,0 +1,17 @@
+.Title {
+}
+
+.Body {
+}
+
+.Results {
+	max-height: 350px;
+	overflow-y: scroll;
+	border: 1px solid black;
+	padding: 15px;
+	border-radius: 15px;
+}
+
+.Button {
+	background-color: transparent;
+}
