@@ -1,17 +1,16 @@
-.Title {
-}
+.Title {}
 
-.Body {
-}
+.Body {}
 
 .Results {
-	max-height: 350px;
-	overflow-y: scroll;
-	border: 1px solid black;
-	padding: 15px;
-	border-radius: 15px;
+   max-height: 350px;
+   overflow-y: scroll;
+   border: 1px solid black;
+   padding: 10px;
+   border-radius: 15px;
+   resize: vertical;
 }
 
 .Button {
-	background-color: transparent;
+   background-color: transparent;
 }
