@@ -1,5 +1,6 @@
 .Title {}
 
+<<<<<<< HEAD
 .Body {}
 
 .Results {
@@ -9,6 +10,19 @@
    padding: 10px;
    border-radius: 15px;
    resize: vertical;
+=======
+.Body {
+	margin-top: 5px;
+	padding-top: 25px;
+}
+
+.Results {
+	max-height: 350px;
+	overflow-y: auto;
+	border: 1px solid black;
+	padding: 15px;
+	border-radius: 15px;
+>>>>>>> 4f222e9487dd829053623b56738bc37309097ff5
 }
 
 .Button {

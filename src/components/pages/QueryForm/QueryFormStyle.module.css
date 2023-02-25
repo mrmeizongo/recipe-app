@@ -1,11 +1,10 @@
 .Container {
 	width: 100%;
-	height: 80vh;
+	height: 600px;
 }
 
 .Query {
 	min-width: 300px;
-	height: fit-content;
 }
 
 .Query strong {
