@@ -71,7 +71,7 @@ const TitleBar = () => {
 	}
 
 	return (
-		<div>
+		<>
 			<nav
 				className={`${TitleStyle.TitleBar} d-flex flex-row align-items-center justify-content-between gap-2`}
 			>
@@ -108,7 +108,7 @@ const TitleBar = () => {
 				</div>
 			</nav>
 			{inputFocus ? <Options removeFocus={removeFocus} /> : null}
-		</div>
+		</>
 	);
 };
 

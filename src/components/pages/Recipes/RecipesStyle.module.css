@@ -2,11 +2,13 @@
 }
 
 .Body {
+	margin-top: 5px;
+	padding-top: 25px;
 }
 
 .Results {
 	max-height: 350px;
-	overflow-y: scroll;
+	overflow-y: auto;
 	border: 1px solid black;
 	padding: 15px;
 	border-radius: 15px;
