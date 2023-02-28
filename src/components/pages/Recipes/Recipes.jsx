@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { gsap } from "gsap";
 import RecipesStyle from "./RecipesStyle.module.css";
 
 const Recipe = ({ children, currentSelection, setCurrentSelection }) => {
@@ -11,13 +12,31 @@ const Recipe = ({ children, currentSelection, setCurrentSelection }) => {
 		let selection = e.target.textContent;
 		if (currentSelection.includes(selection)) {
 			setSelected(false);
-			return setCurrentSelection((prev) =>
+			setCurrentSelection((prev) =>
 				[...prev].filter((element) => element != selection)
 			);
+			return;
 		}
+
+		// Limit number of recipes selectable to 5
+		if (currentSelection.length >= 5) return;
+
+		// Add selected recipe to the list of selected recipes for display
+		// and display all selected recipes
 		setSelected(true);
-		return setCurrentSelection((prev) => [...prev, selection]);
+		// fetch(`http://192.168.1.165:8080/projects/recipe`, {
+		// 	method: "GET",
+		// 	mode: "cors",
+		// 	headers: {
+		// 		"Content-Type": "application/json",
+		// 	},
+		// })
+		// 	.then((response) => response.json())
+		// 	.then(console.log);
+		setCurrentSelection((prev) => [...prev, selection]);
+		return;
 	}
+
 	return (
 		<button
 			className={`${RecipesStyle.Button} ${
@@ -33,8 +52,8 @@ const Recipe = ({ children, currentSelection, setCurrentSelection }) => {
 const Selection = ({ currentSelection }) => {
 	return (
 		<>
-			{currentSelection.map((element) => (
-				<p className="rounded-4 me-2 mb-2 p-2 bg-secondary text-light">
+			{currentSelection.map((element, index) => (
+				<p className="rounded-5 px-3 py-2 bg-secondary text-light" key={index}>
 					{element}
 				</p>
 			))}
@@ -67,9 +86,11 @@ const Recipes = ({ recipes }) => {
 					<h5>Search for recipes!</h5>
 				)}
 			</div>
-			<div className="d-flex flex-wrap mt-2">
-				<Selection currentSelection={currentSelection} />
-			</div>
+			{currentSelection.length > 0 ? (
+				<div className="d-flex align-items-center flex-wrap bg-light mt-3 p-3 gap-1 rounded-4">
+					<Selection currentSelection={currentSelection} />
+				</div>
+			) : null}
 		</div>
 	);
 };

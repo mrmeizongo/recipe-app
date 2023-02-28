@@ -2,7 +2,6 @@
 }
 
 .Body {
-	margin-top: 5px;
 	padding-top: 25px;
 }
 
@@ -10,10 +9,16 @@
 	max-height: 350px;
 	overflow-y: auto;
 	border: 1px solid black;
+	scroll-behavior: smooth;
 	padding: 15px;
 	border-radius: 15px;
 }
 
 .Button {
 	background-color: transparent;
+}
+
+.Button:hover {
+	background-color: hsl(350, 10%, 90%);
+	transition: all 0.8s;
 }
