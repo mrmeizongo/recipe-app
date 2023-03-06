@@ -1,19 +1,24 @@
 import React, { useState, useRef, useEffect } from "react";
-import { gsap } from "gsap";
 import RecipesStyle from "./RecipesStyle.module.css";
 
-const Recipe = ({ children, currentSelection, setCurrentSelection }) => {
+const Recipe = ({
+	children,
+	recipes,
+	currentSelection,
+	setCurrentSelection,
+}) => {
 	const [selected, setSelected] = useState(false);
 	function HandleOnClick(e) {
 		e.preventDefault();
 
+		let selection = e.target.textContent;
+
 		// Check to see if selected recipe is already in the list of
 		// selected recipes, remove if yes, add if no.
-		let selection = e.target.textContent;
 		if (currentSelection.includes(selection)) {
 			setSelected(false);
 			setCurrentSelection((prev) =>
-				[...prev].filter((element) => element != selection)
+				[...prev].filter((el) => el.localeCompare(selection) != 0)
 			);
 			return;
 		}
@@ -24,15 +29,21 @@ const Recipe = ({ children, currentSelection, setCurrentSelection }) => {
 		// Add selected recipe to the list of selected recipes for display
 		// and display all selected recipes
 		setSelected(true);
-		// fetch(`http://192.168.1.165:8080/projects/recipe`, {
-		// 	method: "GET",
-		// 	mode: "cors",
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 	},
-		// })
-		// 	.then((response) => response.json())
-		// 	.then(console.log);
+		const messageBody = {
+			type: "recipe-single",
+			recipeCategory: recipes.recipeCategory,
+			recipeName: selection,
+		};
+		fetch(`http://192.168.1.165:8080/projects/recipe`, {
+			method: "POST",
+			mode: "cors",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(messageBody),
+		})
+			.then((response) => response.json())
+			.then(console.log);
 		setCurrentSelection((prev) => [...prev, selection]);
 		return;
 	}

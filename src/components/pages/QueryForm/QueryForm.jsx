@@ -72,7 +72,10 @@ const QueryForm = ({ handleRecipeNames }) => {
 	function handleOnSubmit(e) {
 		e.preventDefault();
 
+		// Code looks this way due to the way the main recipe json object is structured.
+		// These recipe objects are where all the recipes are stored.
 		const messageBody = {
+			type: "category",
 			initial: formData.initial,
 			name: formData.name[0].toLowerCase() + formData.name.substring(1),
 		};
@@ -91,8 +94,8 @@ const QueryForm = ({ handleRecipeNames }) => {
 			})
 			.then((data) => {
 				handleRecipeNames({
-					recipeName: messageBody,
-					recipeList: JSON.parse(data.body),
+					recipeCategory: messageBody,
+					recipeList: data.body,
 				});
 				navigate("/recipes");
 			})
