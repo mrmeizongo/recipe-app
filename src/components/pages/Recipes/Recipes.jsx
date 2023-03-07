@@ -6,6 +6,7 @@ const Recipe = ({
 	recipes,
 	currentSelection,
 	setCurrentSelection,
+	setRecipeList,
 }) => {
 	const [selected, setSelected] = useState(false);
 	function HandleOnClick(e) {
@@ -20,20 +21,24 @@ const Recipe = ({
 			setCurrentSelection((prev) =>
 				[...prev].filter((el) => el.localeCompare(selection) != 0)
 			);
+			// Remove recipe from recipe list state array
+			setRecipeList((prev) => [...prev].filter((el) => {}));
 			return;
 		}
 
 		// Limit number of recipes selectable to 5
 		if (currentSelection.length >= 5) return;
+		const messageBody = {
+			type: "recipe-single",
+			initial: recipes.recipeCategory.initial,
+			category: recipes.recipeCategory.category,
+			recipeName: selection,
+		};
 
 		// Add selected recipe to the list of selected recipes for display
 		// and display all selected recipes
 		setSelected(true);
-		const messageBody = {
-			type: "recipe-single",
-			recipeCategory: recipes.recipeCategory,
-			recipeName: selection,
-		};
+
 		fetch(`http://192.168.1.165:8080/projects/recipe`, {
 			method: "POST",
 			mode: "cors",
@@ -43,7 +48,9 @@ const Recipe = ({
 			body: JSON.stringify(messageBody),
 		})
 			.then((response) => response.json())
-			.then(console.log);
+			.then((result) => {
+				setRecipeList((prev) => [...prev, result.body[0]]);
+			});
 		setCurrentSelection((prev) => [...prev, selection]);
 		return;
 	}
@@ -74,6 +81,12 @@ const Selection = ({ currentSelection }) => {
 
 const Recipes = ({ recipes }) => {
 	const [currentSelection, setCurrentSelection] = useState([]);
+	const [recipeList, setRecipeList] = useState([]);
+
+	useEffect(() => {
+		console.log(recipeList);
+	}, [recipeList]);
+
 	return (
 		<div className={RecipesStyle.Body}>
 			<h1>Title: Results for Selection</h1>
@@ -88,6 +101,7 @@ const Recipes = ({ recipes }) => {
 								recipes={recipes}
 								currentSelection={currentSelection}
 								setCurrentSelection={setCurrentSelection}
+								setRecipeList={setRecipeList}
 							>
 								{element}
 							</Recipe>
@@ -100,6 +114,13 @@ const Recipes = ({ recipes }) => {
 			{currentSelection.length > 0 ? (
 				<div className="d-flex align-items-center flex-wrap bg-light mt-3 p-3 gap-1 rounded-4">
 					<Selection currentSelection={currentSelection} />
+				</div>
+			) : null}
+			{recipeList.length > 0 ? (
+				<div className="d-flex align-items-center flex-wrap bg-light mt-3 p-3 gap-1 rounded-4">
+					{recipeList.map((el, index) => {
+						return <div key={index}>{}</div>;
+					})}
 				</div>
 			) : null}
 		</div>

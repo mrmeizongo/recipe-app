@@ -77,7 +77,7 @@ const QueryForm = ({ handleRecipeNames }) => {
 		const messageBody = {
 			type: "category",
 			initial: formData.initial,
-			name: formData.name[0].toLowerCase() + formData.name.substring(1),
+			category: formData.name[0].toLowerCase() + formData.name.substring(1),
 		};
 
 		fetch("http://192.168.1.165:8080/projects/recipe", {
