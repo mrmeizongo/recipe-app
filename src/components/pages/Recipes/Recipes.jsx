@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import RecipesStyle from "./RecipesStyle.module.css";
+import RecipeListing from "../../RecipeListing/RecipeListing";
 
 const Recipe = ({
 	children,
@@ -15,19 +16,23 @@ const Recipe = ({
 		let selection = e.target.textContent;
 
 		// Check to see if selected recipe is already in the list of
-		// selected recipes, remove if yes, add if no.
+		// selected recipes, remove if yes.
 		if (currentSelection.includes(selection)) {
 			setSelected(false);
 			setCurrentSelection((prev) =>
 				[...prev].filter((el) => el.localeCompare(selection) != 0)
 			);
+
 			// Remove recipe from recipe list state array
-			setRecipeList((prev) => [...prev].filter((el) => {}));
+			setRecipeList((prev) =>
+				[...prev].filter((el) => Object.keys(el)[0] != selection)
+			);
 			return;
 		}
 
 		// Limit number of recipes selectable to 5
 		if (currentSelection.length >= 5) return;
+
 		const messageBody = {
 			type: "recipe-single",
 			initial: recipes.recipeCategory.initial,
@@ -50,7 +55,11 @@ const Recipe = ({
 			.then((response) => response.json())
 			.then((result) => {
 				setRecipeList((prev) => [...prev, result.body[0]]);
+			})
+			.catch((error) => {
+				console.error(error);
 			});
+
 		setCurrentSelection((prev) => [...prev, selection]);
 		return;
 	}
@@ -83,10 +92,6 @@ const Recipes = ({ recipes }) => {
 	const [currentSelection, setCurrentSelection] = useState([]);
 	const [recipeList, setRecipeList] = useState([]);
 
-	useEffect(() => {
-		console.log(recipeList);
-	}, [recipeList]);
-
 	return (
 		<div className={RecipesStyle.Body}>
 			<h1>Title: Results for Selection</h1>
@@ -112,17 +117,11 @@ const Recipes = ({ recipes }) => {
 				)}
 			</div>
 			{currentSelection.length > 0 ? (
-				<div className="d-flex align-items-center flex-wrap bg-light mt-3 p-3 gap-1 rounded-4">
+				<div className="d-flex align-items-center flex-wrap bg-light mt-3 p-3 gap-1 rounded-4 rounded-bottom-0">
 					<Selection currentSelection={currentSelection} />
 				</div>
 			) : null}
-			{recipeList.length > 0 ? (
-				<div className="d-flex align-items-center flex-wrap bg-light mt-3 p-3 gap-1 rounded-4">
-					{recipeList.map((el, index) => {
-						return <div key={index}>{}</div>;
-					})}
-				</div>
-			) : null}
+			{recipeList.length > 0 ? <RecipeListing recipeList={recipeList} /> : null}
 		</div>
 	);
 };
