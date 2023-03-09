@@ -1,21 +1,22 @@
 import React from "react";
 
-const RecipeListing = ({ recipeList }) => {
+const RecipeListing = ({ recipeList, className }) => {
 	return (
-		<div className="row">
-			{recipeList.map((el, index) => {
-				return (
-					<div
-						className="col-12 col-md-6 col-xl-4 bg-light py-3 px-3"
-						key={index}
-					>
-						{}
-						{el[Object.keys(el)[0]].directions.map((el) => (
-							<p className="mb-2">{el}</p>
-						))}
-					</div>
-				);
-			})}
+		<div className={className}>
+			<div className="row g-3">
+				{recipeList.map((el, index) => {
+					return (
+						<div
+							className="col-12 col-md-6 col-xl-4 bg-white rounded-4 p-3"
+							key={index}
+						>
+							{el[Object.keys(el)[0]].ingredients.map((el, index) => (
+								<p key={index}>{el}</p>
+							))}
+						</div>
+					);
+				})}
+			</div>
 		</div>
 	);
 };

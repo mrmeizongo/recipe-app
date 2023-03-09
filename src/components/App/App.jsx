@@ -13,7 +13,7 @@ function App() {
 	});
 
 	return (
-		<div className={`${Appstyle.App} container`}>
+		<div className={`${Appstyle.App} container-fluid`}>
 			<Router>
 				<header className={`${Appstyle.Header}`}>
 					<TitleBar />

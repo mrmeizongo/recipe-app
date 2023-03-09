@@ -2,16 +2,13 @@
 }
 
 .Body {
-	padding-top: 25px;
+	min-height: inherit;
 }
 
 .Results {
-	max-height: 350px;
+	max-height: 89dvh;
 	overflow-y: auto;
-	border: 1px solid black;
 	scroll-behavior: smooth;
-	padding: 15px;
-	border-radius: 15px;
 }
 
 .Button {

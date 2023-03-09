@@ -1,17 +1,17 @@
 .App {
-	min-height: 100vh;
+	min-height: 100dvh;
 }
 
 .Header {
-	height: 5vh;
+	height: 5dvh;
 }
 
 .MainBody {
-	min-height: 90vh;
+	min-height: 90dvh;
 }
 
 .Footer {
-	height: 5vh;
+	height: 5dvh;
 }
 
 /* width */

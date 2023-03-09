@@ -86,7 +86,7 @@ const TitleBar = () => {
 				</div>
 
 				<div
-					className={`${TitleStyle.Search} d-flex flex-row align-items-center justify-content-start mx-2 mx-lg-5`}
+					className={`${TitleStyle.Search} d-flex flex-row align-items-center justify-content-start mx-2 mx-lg-5 w-50`}
 				>
 					<Search inputFocus={inputFocus} setFocus={setFocus} />
 				</div>

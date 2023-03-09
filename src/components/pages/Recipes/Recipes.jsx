@@ -68,7 +68,7 @@ const Recipe = ({
 		<button
 			className={`${RecipesStyle.Button} ${
 				selected ? "bg-secondary text-light" : "bg-none text-dark"
-			} border border-secondary rounded-5 py-2 px-3`}
+			} border rounded-5 py-2 px-3`}
 			onClick={HandleOnClick}
 		>
 			<>{children}</>
@@ -93,35 +93,41 @@ const Recipes = ({ recipes }) => {
 	const [recipeList, setRecipeList] = useState([]);
 
 	return (
-		<div className={RecipesStyle.Body}>
-			<h1>Title: Results for Selection</h1>
-			<div
-				className={`${RecipesStyle.Results} d-flex flex-row flex-wrap gap-1 mt-1`}
-			>
-				{recipes.recipeList.length > 0 ? (
-					recipes.recipeList.map((element, index) => {
-						return (
-							<Recipe
-								key={index}
-								recipes={recipes}
-								currentSelection={currentSelection}
-								setCurrentSelection={setCurrentSelection}
-								setRecipeList={setRecipeList}
-							>
-								{element}
-							</Recipe>
-						);
-					})
-				) : (
-					<h5>Search for recipes!</h5>
-				)}
+		<div className={`${RecipesStyle.Body} row`}>
+			<div className="col-12 col-lg-3">
+				<div
+					className={`${RecipesStyle.Results} d-flex flex-row flex-lg-column flex-wrap align-items-lg-center gap-1 p-3`}
+				>
+					{recipes.recipeList.length > 0 ? (
+						recipes.recipeList.map((element, index) => {
+							return (
+								<Recipe
+									key={index}
+									recipes={recipes}
+									currentSelection={currentSelection}
+									setCurrentSelection={setCurrentSelection}
+									setRecipeList={setRecipeList}
+								>
+									{element}
+								</Recipe>
+							);
+						})
+					) : (
+						<h5>Search for recipes!</h5>
+					)}
+				</div>
 			</div>
-			{currentSelection.length > 0 ? (
+			{/* {currentSelection.length > 0 ? (
 				<div className="d-flex align-items-center flex-wrap bg-light mt-3 p-3 gap-1 rounded-4 rounded-bottom-0">
 					<Selection currentSelection={currentSelection} />
 				</div>
+			) : null} */}
+			{recipeList.length > 0 ? (
+				<RecipeListing
+					className="col-12 col-lg-9 bg-light rounded-4 p-3"
+					recipeList={recipeList}
+				/>
 			) : null}
-			{recipeList.length > 0 ? <RecipeListing recipeList={recipeList} /> : null}
 		</div>
 	);
 };
