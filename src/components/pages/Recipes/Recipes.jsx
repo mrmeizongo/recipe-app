@@ -96,7 +96,7 @@ const Recipes = ({ recipes }) => {
 		<div className={`${RecipesStyle.Body} row`}>
 			<div className="col-12 col-lg-3">
 				<div
-					className={`${RecipesStyle.Results} d-flex flex-row flex-lg-column flex-wrap align-items-lg-center gap-1 p-3`}
+					className={`${RecipesStyle.Results} d-flex flex-row flex-lg-column flex-wrap flex-lg-nowrap align-items-lg-center gap-1 p-3`}
 				>
 					{recipes.recipeList.length > 0 ? (
 						recipes.recipeList.map((element, index) => {
