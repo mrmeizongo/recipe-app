@@ -93,11 +93,15 @@ const QueryForm = ({ handleRecipeNames }) => {
 				else console.log("There was an error fetching request from server");
 			})
 			.then((data) => {
-				handleRecipeNames({
+				const recipeObj = {
 					recipeCategory: messageBody,
 					recipeList: data.body,
-				});
-				navigate("/recipes");
+				};
+				handleRecipeNames(recipeObj);
+				window.sessionStorage.setItem("recipe", recipeObj.recipeCategory);
+				navigate(
+					`/recipes/${recipeObj.recipeCategory.initial}/${recipeObj.recipeCategory.category}`
+				);
 			})
 			.catch((error) => console.error("Error: ", error));
 	}

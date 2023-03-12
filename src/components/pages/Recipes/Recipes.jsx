@@ -27,11 +27,12 @@ const Recipe = ({
 			setRecipeList((prev) =>
 				[...prev].filter((el) => Object.keys(el)[0] != selection)
 			);
+
 			return;
 		}
 
 		// Limit number of recipes selectable to 5
-		if (currentSelection.length >= 5) return;
+		if (currentSelection.length >= 10) return;
 
 		const messageBody = {
 			type: "recipe-single",
@@ -55,6 +56,11 @@ const Recipe = ({
 			.then((response) => response.json())
 			.then((result) => {
 				setRecipeList((prev) => [...prev, result.body[0]]);
+				// const currentRecipeList = window.sessionStorage.getItem("recipeList");
+				// window.sessionStorage.setItem("recipeList", [
+				// 	...currentRecipeList,
+				// 	...result.body,
+				// ]);
 			})
 			.catch((error) => {
 				console.error(error);
@@ -66,6 +72,7 @@ const Recipe = ({
 
 	return (
 		<button
+			type="button"
 			className={`${RecipesStyle.Button} ${
 				selected ? "bg-secondary text-light" : "bg-none text-dark"
 			} border rounded-5 py-2 px-3`}
@@ -95,8 +102,11 @@ const Recipes = ({ recipes }) => {
 	return (
 		<div className={`${RecipesStyle.Body} row`}>
 			<div className="col-12 col-lg-3">
+				<h4 className="mt-5">
+					You can select a maximum of 10 recipes at a time
+				</h4>
 				<div
-					className={`${RecipesStyle.Results} d-flex flex-row flex-lg-column flex-wrap flex-lg-nowrap align-items-lg-center gap-1 p-3`}
+					className={`${RecipesStyle.Results} d-flex flex-row flex-lg-column flex-wrap flex-lg-nowrap align-items-lg-center p-3 gap-1`}
 				>
 					{recipes.recipeList.length > 0 ? (
 						recipes.recipeList.map((element, index) => {
@@ -124,7 +134,7 @@ const Recipes = ({ recipes }) => {
 			) : null} */}
 			{recipeList.length > 0 ? (
 				<RecipeListing
-					className="col-12 col-lg-9 bg-light rounded-4 p-3"
+					className="col-12 col-lg-9 bg-light rounded-4 p-3 mt-3"
 					recipeList={recipeList}
 				/>
 			) : null}

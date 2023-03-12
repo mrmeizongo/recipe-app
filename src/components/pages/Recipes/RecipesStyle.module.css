@@ -1,20 +1,33 @@
-.Title {}
+.Title {
+}
 
 .Body {
-   min-height: inherit;
+	min-height: inherit;
 }
 
 .Results {
-   max-height: 70dvh;
-   overflow-y: auto;
-   box-shadow: inset 0px -5px red;
+	max-height: 50dvh;
+	overflow: scroll;
+	position: relative;
+}
+
+.Button::before {
+	opacity: 0.5;
+	content: counter(result-count) ". ";
 }
 
 .Button {
-   background-color: transparent;
+	background-color: transparent;
+	counter-increment: result-count;
 }
 
 .Button:hover {
-   background-color: hsl(350, 10%, 90%);
-   transition: all 0.8s;
+	background-color: hsl(240, 10%, 90%);
+	transition: all 0.8s;
+}
+
+@media (min-width: 992px) {
+	.Results {
+		max-height: 90dvh;
+	}
 }

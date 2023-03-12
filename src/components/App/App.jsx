@@ -27,7 +27,7 @@ function App() {
 						/>
 						<Route
 							exact
-							path="/recipes"
+							path="/recipes/*"
 							element={<Recipes recipes={recipe} />}
 						/>
 						<Route exact path="/how-it-works" element={<h1>How it works</h1>} />

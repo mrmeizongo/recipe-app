@@ -4,14 +4,17 @@
 
 .Header {
 	height: 5dvh;
+	position: relative;
 }
 
 .MainBody {
 	min-height: 90dvh;
+	position: relative;
 }
 
 .Footer {
 	height: 5dvh;
+	position: relative;
 }
 
 /* width */
