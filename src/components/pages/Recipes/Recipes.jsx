@@ -25,14 +25,16 @@ const Recipe = ({
 
 			// Remove recipe from recipe list state array
 			setRecipeList((prev) =>
-				[...prev].filter((el) => Object.keys(el)[0] != selection)
+				[...prev].filter(
+					(el) => Object.keys(el)[0].localeCompare(selection) != 0
+				)
 			);
 
 			return;
 		}
 
 		// Limit number of recipes selectable to 5
-		if (currentSelection.length >= 10) return;
+		if (currentSelection.length >= 5) return;
 
 		const messageBody = {
 			type: "recipe-single",
@@ -55,7 +57,7 @@ const Recipe = ({
 		})
 			.then((response) => response.json())
 			.then((result) => {
-				setRecipeList((prev) => [...prev, result.body[0]]);
+				setRecipeList((prev) => [...prev, result.body]);
 				// const currentRecipeList = window.sessionStorage.getItem("recipeList");
 				// window.sessionStorage.setItem("recipeList", [
 				// 	...currentRecipeList,
@@ -83,30 +85,15 @@ const Recipe = ({
 	);
 };
 
-const Selection = ({ currentSelection }) => {
-	return (
-		<>
-			{currentSelection.map((element, index) => (
-				<p className="rounded-5 px-3 py-2 bg-secondary text-light" key={index}>
-					{element}
-				</p>
-			))}
-		</>
-	);
-};
-
 const Recipes = ({ recipes }) => {
 	const [currentSelection, setCurrentSelection] = useState([]);
 	const [recipeList, setRecipeList] = useState([]);
 
 	return (
-		<div className={`${RecipesStyle.Body} row`}>
+		<div className={`${RecipesStyle.Body} row mt-1`}>
 			<div className="col-12 col-lg-3">
-				<h4 className="mt-5">
-					You can select a maximum of 10 recipes at a time
-				</h4>
 				<div
-					className={`${RecipesStyle.Results} d-flex flex-row flex-lg-column flex-wrap flex-lg-nowrap align-items-lg-center p-3 gap-1`}
+					className={`${RecipesStyle.Results} d-flex flex-row flex-lg-column flex-wrap flex-lg-nowrap align-items-lg-start p-3 gap-1`}
 				>
 					{recipes.recipeList.length > 0 ? (
 						recipes.recipeList.map((element, index) => {
@@ -132,12 +119,12 @@ const Recipes = ({ recipes }) => {
 					<Selection currentSelection={currentSelection} />
 				</div>
 			) : null} */}
-			{recipeList.length > 0 ? (
-				<RecipeListing
-					className="col-12 col-lg-9 bg-light rounded-4 p-3 mt-3"
-					recipeList={recipeList}
-				/>
-			) : null}
+			<div className="col-12 col-lg-9 bg-light rounded-4 p-3">
+				<div>Select up to 5 recipes to display below</div>
+				{recipeList.length > 0 ? (
+					<RecipeListing recipeList={recipeList} />
+				) : null}
+			</div>
 		</div>
 	);
 };
