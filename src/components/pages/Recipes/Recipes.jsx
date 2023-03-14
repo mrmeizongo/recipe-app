@@ -6,77 +6,45 @@ const Recipe = ({
 	children,
 	recipes,
 	currentSelection,
+	setCurrentRecipe,
 	setCurrentSelection,
-	setRecipeList,
 }) => {
-	const [selected, setSelected] = useState(false);
-	function HandleOnClick(e) {
+	async function HandleOnClick(e) {
 		e.preventDefault();
-
 		let selection = e.target.textContent;
 
-		// Check to see if selected recipe is already in the list of
-		// selected recipes, remove if yes.
-		if (currentSelection.includes(selection)) {
-			setSelected(false);
-			setCurrentSelection((prev) =>
-				[...prev].filter((el) => el.localeCompare(selection) != 0)
-			);
-
-			// Remove recipe from recipe list state array
-			setRecipeList((prev) =>
-				[...prev].filter(
-					(el) => Object.keys(el)[0].localeCompare(selection) != 0
-				)
-			);
-
-			return;
+		if (currentSelection == "" || currentSelection != selection) {
+			const messageBody = {
+				type: "recipe-single",
+				initial: recipes.recipeCategory.initial,
+				category: recipes.recipeCategory.category,
+				recipeName: selection,
+			};
+			// fetch request to server
+			const result = await fetch(`http://192.168.1.165:8080/projects/recipe`, {
+				method: "POST",
+				mode: "cors",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(messageBody),
+			}).then((response) => response.json());
+			// set states
+			setCurrentRecipe(result.body);
+			setCurrentSelection(selection);
+		} else {
+			setCurrentRecipe({});
+			setCurrentSelection("");
 		}
-
-		// Limit number of recipes selectable to 5
-		if (currentSelection.length >= 5) return;
-
-		const messageBody = {
-			type: "recipe-single",
-			initial: recipes.recipeCategory.initial,
-			category: recipes.recipeCategory.category,
-			recipeName: selection,
-		};
-
-		// Add selected recipe to the list of selected recipes for display
-		// and display all selected recipes
-		setSelected(true);
-
-		fetch(`http://192.168.1.165:8080/projects/recipe`, {
-			method: "POST",
-			mode: "cors",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(messageBody),
-		})
-			.then((response) => response.json())
-			.then((result) => {
-				setRecipeList((prev) => [...prev, result.body]);
-				// const currentRecipeList = window.sessionStorage.getItem("recipeList");
-				// window.sessionStorage.setItem("recipeList", [
-				// 	...currentRecipeList,
-				// 	...result.body,
-				// ]);
-			})
-			.catch((error) => {
-				console.error(error);
-			});
-
-		setCurrentSelection((prev) => [...prev, selection]);
-		return;
 	}
 
 	return (
 		<button
 			type="button"
 			className={`${RecipesStyle.Button} ${
-				selected ? "bg-secondary text-light" : "bg-none text-dark"
+				currentSelection == children
+					? "bg-secondary text-light"
+					: "bg-none text-dark"
 			} border rounded-5 py-2 px-3`}
 			onClick={HandleOnClick}
 		>
@@ -86,8 +54,8 @@ const Recipe = ({
 };
 
 const Recipes = ({ recipes }) => {
-	const [currentSelection, setCurrentSelection] = useState([]);
-	const [recipeList, setRecipeList] = useState([]);
+	const [currentSelection, setCurrentSelection] = useState("");
+	const [currentRecipe, setCurrentRecipe] = useState({});
 
 	return (
 		<div className={`${RecipesStyle.Body} row mt-1`}>
@@ -103,7 +71,7 @@ const Recipes = ({ recipes }) => {
 									recipes={recipes}
 									currentSelection={currentSelection}
 									setCurrentSelection={setCurrentSelection}
-									setRecipeList={setRecipeList}
+									setCurrentRecipe={setCurrentRecipe}
 								>
 									{element}
 								</Recipe>
@@ -114,15 +82,10 @@ const Recipes = ({ recipes }) => {
 					)}
 				</div>
 			</div>
-			{/* {currentSelection.length > 0 ? (
-				<div className="d-flex align-items-center flex-wrap bg-light mt-3 p-3 gap-1 rounded-4 rounded-bottom-0">
-					<Selection currentSelection={currentSelection} />
-				</div>
-			) : null} */}
 			<div className="col-12 col-lg-9 bg-light rounded-4 p-3">
-				<div>Select up to 5 recipes to display below</div>
-				{recipeList.length > 0 ? (
-					<RecipeListing recipeList={recipeList} />
+				<div className="mb-3">Selected recipe will be displayed below</div>
+				{currentSelection != "" ? (
+					<RecipeListing currentRecipe={currentRecipe} />
 				) : null}
 			</div>
 		</div>
