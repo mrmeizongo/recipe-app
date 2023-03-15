@@ -20,7 +20,7 @@ const RecipeListing = ({ currentRecipe }) => {
 	return (
 		<div>
 			<p>
-				<strong>{`Selected recipe: ${
+				<strong>{`Recipe: ${
 					currentRecipe[Object.keys(currentRecipe)[0]].title
 				}`}</strong>
 			</p>
