@@ -1,3 +1,18 @@
-.RecipeStyle {
-	max-width: "25%";
+.RecipeStyle > div {
+	padding: 20px;
+	border-radius: 1rem;
+	color: white;
+}
+
+.Ingredients {
+	/* background: #3a98b9; */
+	color: white;
+}
+
+.Directions {
+	/* background: #fff1dc; */
+}
+
+.Tags {
+	/* background: #e8d5c4; */
 }
