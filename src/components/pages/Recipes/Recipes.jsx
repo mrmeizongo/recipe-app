@@ -57,6 +57,10 @@ const Recipes = ({ recipes }) => {
 	const [currentSelection, setCurrentSelection] = useState("");
 	const [currentRecipe, setCurrentRecipe] = useState({});
 
+	useEffect(() => {
+		console.log(currentRecipe);
+	});
+
 	return (
 		<div className={`${RecipesStyle.Body} row mt-1`}>
 			<div className="col-12 col-lg-3">
@@ -83,7 +87,7 @@ const Recipes = ({ recipes }) => {
 				</div>
 			</div>
 			<div className="col-12 col-lg-9 bg-light rounded-4 p-3">
-				<div className="mb-3">Selected recipe will be displayed below</div>
+				<div className="mb-2">Selected recipe will be displayed below.</div>
 				{currentSelection != "" ? (
 					<RecipeListing currentRecipe={currentRecipe} />
 				) : null}

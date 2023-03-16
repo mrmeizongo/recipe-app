@@ -1,59 +1,39 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import RecipeListingStyle from "./RecipeListingStyle.module.css";
 
-const bgColors = [
-	"#3A98B9",
-	"FFF1DC",
-	"#A0C3D2",
-	"#579BB1",
-	"#7FE9DE",
-	"#FF9F9F",
-	"#FCDDB0",
-	"#90A17D",
-];
-
 const RecipeListing = ({ currentRecipe }) => {
-	const randomColor = (() => {
-		return bgColors[Math.floor(Math.random() * bgColors.length)];
-	})();
-
 	return (
 		<div>
-			<p>
-				<strong>{`Recipe: ${
-					currentRecipe[Object.keys(currentRecipe)[0]].title
-				}`}</strong>
+			<p className="mb-2 text-decoration-underline">
+				<strong>{currentRecipe[Object.keys(currentRecipe)[0]].title}</strong>
 			</p>
 			<div
-				className={`${RecipeListingStyle.RecipeStyle} d-flex flex-column flex-lg-row justify-content-between flex-wrap bg-white rounded-4 p-3`}
+				className={`${RecipeListingStyle.RecipeStyle} d-flex flex-column flex-lg-row justify-content-between flex-wrap rounded-4`}
 			>
-				<div
-					style={{ backgroundColor: randomColor }}
-					className={`${RecipeListingStyle.Ingredients} mb-4`}
-				>
+				<div className={`mb-3`}>
 					<strong>Ingredients list: </strong>
-					{currentRecipe[Object.keys(currentRecipe)[0]].ingredients.map(
-						(el, index) => (
-							<p key={index}>{el}</p>
-						)
-					)}
+					<ul>
+						{currentRecipe[Object.keys(currentRecipe)[0]].ingredients.map(
+							(el, index) => (
+								<li key={index}>{el}</li>
+							)
+						)}
+					</ul>
 				</div>
-				<div
-					style={{ backgroundColor: randomColor }}
-					className={`${RecipeListingStyle.Directions} mb-4`}
-				>
+				<div className={`mb-3`}>
 					<strong>Directions: </strong>
-					{currentRecipe[Object.keys(currentRecipe)[0]].directions.map(
-						(el, index) => (
-							<p key={index}>{el}</p>
-						)
-					)}
+					<ul>
+						{currentRecipe[Object.keys(currentRecipe)[0]].directions.map(
+							(el, index) => (
+								<li key={index}>{el}</li>
+							)
+						)}
+					</ul>
 				</div>
-				<div
-					style={{ backgroundColor: randomColor }}
-					className={`${RecipeListingStyle.Tags}`}
-				>
+				<div className="mb-3">
 					<strong>Tags: </strong>
+
 					{currentRecipe[Object.keys(currentRecipe)[0]].tags.map(
 						(el, index) => (
 							<p className="d-inline" key={index}>
@@ -61,6 +41,15 @@ const RecipeListing = ({ currentRecipe }) => {
 							</p>
 						)
 					)}
+				</div>
+				<div>
+					<strong>Source: </strong>
+					<a
+						href={currentRecipe[Object.keys(currentRecipe)[0]].url}
+						target="_blank"
+					>
+						{currentRecipe[Object.keys(currentRecipe)[0]].source}
+					</a>
 				</div>
 			</div>
 		</div>

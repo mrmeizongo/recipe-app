@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import QueryFormStyle from "./QueryFormStyle.module.css";
-import ChefIcon from "../../../assets/chef-icon.png";
 import { recipeInitials, getRecipeNames } from "../../../helper/RecipeHelper";
 
 const SimpleSelect = ({ placeHolder, onChange, content }) => {
@@ -21,15 +19,13 @@ const SimpleSelect = ({ placeHolder, onChange, content }) => {
 	);
 };
 
-const QueryForm = ({ handleRecipeNames }) => {
+const Query = () => {
 	const [formData, changeFormData] = useState({
 		initial: "",
 		name: "",
 		showRecipeName: false,
 		showSubmit: false,
 	});
-
-	const navigate = useNavigate();
 
 	function handleOnInitChange(e) {
 		e.preventDefault();
@@ -107,47 +103,41 @@ const QueryForm = ({ handleRecipeNames }) => {
 	}
 
 	return (
-		<section
-			className={`${QueryFormStyle.Container} d-flex flex-column flex-md-row 
-          align-items-center justify-content-around flex-grow-1`}
-		>
-			<img src={ChefIcon} className={`${QueryFormStyle.Icon}`} />
-			<div
-				className={`${QueryFormStyle.Query} d-flex flex-column justify-content-center
+		<div
+			className={`${QueryFormStyle.Query} d-flex flex-column justify-content-center
              align-items-start rounded-5 shadow p-4 gap-3`}
-			>
-				<h2>
-					Search over <strong>4k Recipes</strong>.
-				</h2>
-				<h4>What do you want to eat today?</h4>
-				<form className="d-flex flex-column gap-3">
+		>
+			<h2>
+				Search over <strong>4k Recipes</strong>.
+			</h2>
+			<h4>What do you want to eat today?</h4>
+			<form className="d-flex flex-column gap-3">
+				<SimpleSelect
+					placeHolder={"Choose recipe initial"}
+					onChange={handleOnInitChange}
+					content={recipeInitials}
+				/>
+
+				{formData.showRecipeName ? (
 					<SimpleSelect
-						placeHolder={"Choose recipe initial"}
-						onChange={handleOnInitChange}
-						content={recipeInitials}
+						placeHolder={`Category starting with ${formData.initial}`}
+						onChange={handleOnNameChange}
+						content={getRecipeNames(formData.initial)}
 					/>
+				) : null}
 
-					{formData.showRecipeName ? (
-						<SimpleSelect
-							placeHolder={`Category starting with ${formData.initial}`}
-							onChange={handleOnNameChange}
-							content={getRecipeNames(formData.initial)}
-						/>
-					) : null}
-
-					{formData.showSubmit ? (
-						<button
-							type="button"
-							className="btn btn-danger rounded-5"
-							onClick={handleOnSubmit}
-						>
-							See recipes
-						</button>
-					) : null}
-				</form>
-			</div>
-		</section>
+				{formData.showSubmit ? (
+					<button
+						type="button"
+						className="btn btn-danger rounded-5"
+						onClick={handleOnSubmit}
+					>
+						See recipes
+					</button>
+				) : null}
+			</form>
+		</div>
 	);
 };
 
-export default QueryForm;
+export default Query;
