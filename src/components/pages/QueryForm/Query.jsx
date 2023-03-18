@@ -94,7 +94,6 @@ const Query = () => {
 					recipeList: data.body,
 				};
 				handleRecipeNames(recipeObj);
-				window.sessionStorage.setItem("recipe", recipeObj.recipeCategory);
 				navigate(
 					`/recipes/${recipeObj.recipeCategory.initial}/${recipeObj.recipeCategory.category}`
 				);
