@@ -21,7 +21,7 @@ const Recipe = ({
 				recipeName: selection,
 			};
 			// fetch request to server
-			const result = await fetch(`https://www.mrmeizongo.io/projects/recipe`, {
+			const result = await fetch(`https://www.meizongo.io/projects/recipe`, {
 				method: "POST",
 				mode: "cors",
 				headers: {
@@ -56,10 +56,6 @@ const Recipe = ({
 const Recipes = ({ recipes }) => {
 	const [currentSelection, setCurrentSelection] = useState("");
 	const [currentRecipe, setCurrentRecipe] = useState({});
-
-	useEffect(() => {
-		console.log(currentRecipe);
-	});
 
 	return (
 		<div className={`${RecipesStyle.Body} row mt-1`}>

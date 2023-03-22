@@ -76,7 +76,7 @@ const Query = () => {
 			category: formData.name[0].toLowerCase() + formData.name.substring(1),
 		};
 
-		fetch("https://www.mrmeizongo.io/projects/recipe", {
+		fetch("https://www.meizongo.io/projects/recipe", {
 			method: "POST",
 			mode: "cors",
 			headers: {
