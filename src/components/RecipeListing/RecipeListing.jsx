@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import RecipeListingStyle from "./RecipeListingStyle.module.css";
 
 const RecipeListing = ({ currentRecipe }) => {
