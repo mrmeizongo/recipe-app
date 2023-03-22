@@ -21,7 +21,7 @@ const Recipe = ({
 				recipeName: selection,
 			};
 			// fetch request to server
-			const result = await fetch(`http://192.168.1.165:8080/projects/recipe`, {
+			const result = await fetch(`https://www.mrmeizongo.io/projects/recipe`, {
 				method: "POST",
 				mode: "cors",
 				headers: {

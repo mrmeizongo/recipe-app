@@ -76,7 +76,7 @@ const Query = () => {
 			category: formData.name[0].toLowerCase() + formData.name.substring(1),
 		};
 
-		fetch("http://192.168.1.165:8080/projects/recipe", {
+		fetch("https://www.mrmeizongo.io/projects/recipe", {
 			method: "POST",
 			mode: "cors",
 			headers: {
