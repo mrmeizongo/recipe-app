@@ -15,7 +15,7 @@
 		"react-redux": "^8.0.5",
 		"react-router-dom": "^6.6.1"
 	},
-	"homepage": "/projects/recipe",
+	"homepage": ".",
 	"devDependencies": {
 		"@types/jquery": "^3.5.16",
 		"@types/react": "^18.0.24",
