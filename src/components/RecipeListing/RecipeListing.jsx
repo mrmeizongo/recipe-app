@@ -1,5 +1,5 @@
 import React from "react";
-import RecipeListingStyle from "./RecipeListingStyle.module.css";
+import ListingStyle from "./ListingStyle.module.css";
 
 const RecipeListing = ({ currentRecipe }) => {
 	return (
@@ -8,7 +8,7 @@ const RecipeListing = ({ currentRecipe }) => {
 				<strong>{currentRecipe[Object.keys(currentRecipe)[0]].title}</strong>
 			</p>
 			<div
-				className={`${RecipeListingStyle.RecipeStyle} d-flex flex-column flex-lg-row justify-content-between flex-wrap rounded-4`}
+				className={`${ListingStyle.RecipeStyle} d-flex flex-column flex-lg-row justify-content-between flex-wrap rounded-4`}
 			>
 				<div className={`mb-3`}>
 					<strong>Ingredients list: </strong>
