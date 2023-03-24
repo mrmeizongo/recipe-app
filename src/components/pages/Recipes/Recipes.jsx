@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import RecipesStyle from "./RecipesStyle.module.css";
 import RecipeListing from "../../RecipeListing/RecipeListing";
 
@@ -87,6 +87,8 @@ const Recipes = ({ recipes }) => {
 				{currentSelection != "" ? (
 					<RecipeListing currentRecipe={currentRecipe} />
 				) : null}
+				{/* Show a fallback while recipe is loading. Also when recipe page opens let page autofill from url. */}
+				{/* Change url format to recipes?B?babka */}
 			</div>
 		</div>
 	);

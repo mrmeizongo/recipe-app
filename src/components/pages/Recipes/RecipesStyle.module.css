@@ -11,16 +11,6 @@
 	position: relative;
 }
 
-.Button::before {
-	opacity: 0.5;
-	content: counter(result-count) ". ";
-}
-
-.Button {
-	background-color: transparent;
-	counter-increment: result-count;
-}
-
 .Button:hover {
 	background-color: hsl(240, 10%, 90%);
 	transition: all 0.8s;

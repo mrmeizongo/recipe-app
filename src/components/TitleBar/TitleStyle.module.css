@@ -29,6 +29,7 @@
 	border: 1px solid hsl(0, 0%, 90%);
 	border-radius: 0 0 10px 10px;
 	background-color: white;
+	z-index: 5;
 	margin-top: 15px;
 }
 

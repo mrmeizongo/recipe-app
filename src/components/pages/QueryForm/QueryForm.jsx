@@ -71,6 +71,7 @@ const QueryForm = ({ handleRecipeNames }) => {
 
 	function handleOnSubmit(e) {
 		e.preventDefault();
+		e.target.innerHTML = "Loading..";
 
 		// Code looks this way due to the way the main recipe json object is structured.
 		// These recipe objects are where all the recipes are stored.
