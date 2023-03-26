@@ -19,7 +19,7 @@ const SimpleSelect = ({ placeHolder, onChange, content }) => {
 	);
 };
 
-const Query = () => {
+const Query = ({ handleRecipeNames }) => {
 	const [formData, changeFormData] = useState({
 		initial: "",
 		name: "",
@@ -106,10 +106,6 @@ const Query = () => {
 			className={`${QueryFormStyle.Query} d-flex flex-column justify-content-center
              align-items-start rounded-5 shadow p-4 gap-3`}
 		>
-			<h2>
-				Search over <strong>4k Recipes</strong>.
-			</h2>
-			<h4>What do you want to eat today?</h4>
 			<form className="d-flex flex-column gap-3">
 				<SimpleSelect
 					placeHolder={"Choose recipe initial"}

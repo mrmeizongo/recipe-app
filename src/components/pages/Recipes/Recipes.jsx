@@ -14,6 +14,7 @@ const Recipe = ({
 		let selection = e.target.textContent;
 
 		if (currentSelection == "" || currentSelection != selection) {
+			setCurrentSelection(selection);
 			const messageBody = {
 				type: "recipe-single",
 				initial: recipes.recipeCategory.initial,
@@ -31,7 +32,6 @@ const Recipe = ({
 			}).then((response) => response.json());
 			// set states
 			setCurrentRecipe(result.body);
-			setCurrentSelection(selection);
 		} else {
 			setCurrentRecipe({});
 			setCurrentSelection("");
@@ -45,7 +45,7 @@ const Recipe = ({
 				currentSelection == children
 					? "bg-secondary text-light"
 					: "bg-none text-dark"
-			} border rounded-5 py-2 px-3`}
+			} border rounded-3 py-2 px-3`}
 			onClick={HandleOnClick}
 		>
 			<>{children}</>
@@ -82,11 +82,8 @@ const Recipes = ({ recipes }) => {
 					)}
 				</div>
 			</div>
-			<div className="col-12 col-lg-9 bg-light rounded-4 p-3">
-				<div className="mb-2">Selected recipe will be displayed below.</div>
-				{currentSelection != "" ? (
-					<RecipeListing currentRecipe={currentRecipe} />
-				) : null}
+			<div className="col-12 col-lg-9 bg-light rounded-4">
+				<RecipeListing currentRecipe={currentRecipe} />
 				{/* Show a fallback while recipe is loading. Also when recipe page opens let page autofill from url. */}
 				{/* Change url format to recipes?B?babka */}
 			</div>
