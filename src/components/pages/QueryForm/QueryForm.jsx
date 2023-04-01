@@ -2,12 +2,17 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import QueryFormStyle from "./QueryFormStyle.module.css";
 import ChefIcon from "../../../assets/chef-icon.png";
-import QueryContext from "../../../Context/QueryContext";
+import QueryContext from "../../../context/QueryContext.jsx";
 import { recipeInitials, getRecipeNames } from "../../../helper/RecipeHelper";
 
-const SimpleSelect = ({ placeHolder, onChange, content }) => {
+const SimpleSelect = ({ placeHolder, onChange, content, name }) => {
 	return (
-		<select className="form-select rounded-5" onChange={onChange}>
+		<select
+			name={name}
+			title={name}
+			className="form-select rounded-5"
+			onChange={onChange}
+		>
 			<option defaultValue={true} value={"defaultValue"}>
 				{placeHolder}
 			</option>
@@ -22,103 +27,108 @@ const SimpleSelect = ({ placeHolder, onChange, content }) => {
 	);
 };
 
-const QueryForm = ({ setWebData }) => {
-	const [formData, changeFormData] = useState({
-		initial: "",
-		name: "",
-		showRecipeName: false,
-		showSubmit: false,
-	});
-	const webData = useContext(QueryContext);
-
-	useEffect(() => {
-		console.log(webData);
-	}, [webData]);
-
+const QueryForm = () => {
+	// Page nagivation
 	const navigate = useNavigate();
+	// Form view control
+	const [formView, changeFormView] = useState({
+		showRecipeCategory: false,
+		showSubmitButton: false,
+	});
 
+	// From context provider
+	const [recipeData, setRecipeData] = useContext(QueryContext)["recipeData"];
+
+	// Click hanlders
+	// OnInitialSelect
 	function handleOnInitChange(e) {
 		e.preventDefault();
-		changeFormData((prev) => {
-			if (e.target.value == "defaultValue") {
+		if (e.target.value == "defaultValue") {
+			setRecipeData((prev) => {
 				return {
 					...prev,
-					showRecipeName: false,
-					showSubmit: false,
 					initial: "",
-					name: "",
+					category: "",
 				};
-			} else {
-				return { ...prev, showRecipeName: true, initial: e.target.value };
-			}
-		});
+			});
+
+			// Revert to default view
+			changeFormView((prev) => {
+				return {
+					...prev,
+					showRecipeCategory: false,
+					showSubmitButton: false,
+				};
+			});
+		} else {
+			window.sessionStorage.setItem("initial", JSON.stringify(e.target.value));
+			setRecipeData((prev) => {
+				return { ...prev, initial: e.target.value };
+			});
+
+			// Show category input
+			changeFormView((prev) => {
+				return {
+					...prev,
+					showRecipeCategory: true,
+				};
+			});
+		}
 	}
 
+	// OnCategorySelect
 	function handleOnNameChange(e) {
 		e.preventDefault();
-		changeFormData((prev) => {
-			if (e.target.value == "defaultValue") {
+		if (e.target.value == "defaultValue") {
+			setRecipeData((prev) => {
 				return {
 					...prev,
-					showRecipeName: false,
-					showSubmit: false,
-					initial: "",
-					name: "",
+					category: "",
 				};
-			} else {
+			});
+			// Revert to default view
+			changeFormView((prev) => {
 				return {
 					...prev,
-					name: e.target.value,
-					showSubmit: true,
+					showSubmitButton: false,
 				};
-			}
-		});
+			});
+		} else {
+			window.sessionStorage.setItem("category", JSON.stringify(e.target.value));
+			setRecipeData((prev) => {
+				return {
+					...prev,
+					category: e.target.value,
+				};
+			});
+
+			// Show submit button
+			changeFormView((prev) => {
+				return {
+					...prev,
+					showSubmitButton: true,
+				};
+			});
+		}
 	}
 
+	// OnSubmit
 	function handleOnSubmit(e) {
 		e.preventDefault();
-		e.target.innerHTML = "Loading..";
-
-		// Code looks this way due to the way the main recipe json object is structured.
-		// These recipe objects are where all the recipes are stored.
-		const messageBody = {
-			type: "category",
-			initial: formData.initial,
-			category: formData.name[0].toLowerCase() + formData.name.substring(1),
-		};
-
-		fetch("https://www.meizongo.io/projects/recipe", {
-			method: "POST",
-			mode: "cors",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(messageBody),
-		})
-			.then((response) => {
-				if (response.ok) return response.json();
-				else console.log("There was an error fetching request from server");
-			})
-			.then((data) => {
-				const recipeObj = {
-					recipeCategory: messageBody,
-					recipeList: data.body,
-				};
-				setWebData(recipeObj);
-				window.sessionStorage.setItem("recipe", recipeObj.recipeCategory);
-				navigate(
-					`/recipes/${recipeObj.recipeCategory.initial}/${recipeObj.recipeCategory.category}`
-				);
-			})
-			.catch((error) => console.error("Error: ", error));
+		navigate(`/recipes/${recipeData.initial}/${recipeData.category}`);
 	}
 
 	return (
 		<section
 			className={`${QueryFormStyle.Container} d-flex flex-column flex-md-row 
-          align-items-center justify-content-around flex-grow-1`}
+          align-items-center justify-content-around`}
 		>
-			<img src={ChefIcon} className={`${QueryFormStyle.Icon}`} />
+			<img
+				src={ChefIcon}
+				alt="chef"
+				title="chef"
+				className={`${QueryFormStyle.Icon}`}
+			/>
 			<div
 				className={`${QueryFormStyle.Query} d-flex flex-column justify-content-center
              align-items-start rounded-5 shadow p-4 gap-3`}
@@ -127,27 +137,25 @@ const QueryForm = ({ setWebData }) => {
 					Search over <strong>4k Recipes</strong>.
 				</h2>
 				<h4>What do you want to eat today?</h4>
-				<form className="d-flex flex-column gap-3">
+				<form className="d-flex flex-column gap-3" onSubmit={handleOnSubmit}>
 					<SimpleSelect
 						placeHolder={"Choose recipe initial"}
 						onChange={handleOnInitChange}
 						content={recipeInitials}
+						name="initial"
 					/>
 
-					{formData.showRecipeName ? (
+					{formView.showRecipeCategory ? (
 						<SimpleSelect
-							placeHolder={`Category starting with ${formData.initial}`}
+							placeHolder={`Category starting with ${recipeData.initial}`}
 							onChange={handleOnNameChange}
-							content={getRecipeNames(formData.initial)}
+							content={getRecipeNames(recipeData.initial)}
+							name="category"
 						/>
 					) : null}
 
-					{formData.showSubmit ? (
-						<button
-							type="button"
-							className="btn btn-danger rounded-5"
-							onClick={handleOnSubmit}
-						>
+					{formView.showSubmitButton ? (
+						<button type="submit" className="btn btn-danger rounded-5">
 							See recipes
 						</button>
 					) : null}

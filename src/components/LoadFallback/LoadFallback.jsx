@@ -5,11 +5,11 @@ const LoadFallback = () => {
 		<div
 			style={{
 				width: "100%",
-				height: "min-content",
-				background: "white",
+				height: "50svh",
 			}}
+			className="d-flex flex-row align-items-center justify-content-center gap-2 bg-white"
 		>
-			Loading...
+			<i className="fa-solid fa-spinner fa-spin fa-2xl"></i>
 		</div>
 	);
 };

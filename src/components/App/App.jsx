@@ -1,24 +1,39 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Appstyle from "./AppStyle.module.css";
 import TitleBar from "../TitleBar/TitleBar.jsx";
 import QueryForm from "../pages/QueryForm/QueryForm.jsx";
 import Footer from "../Footer/Footer.jsx";
-import QueryContext from "../../../Context/QueryContext.jsx";
+import QueryContext from "../../context/QueryContext";
 import LoadFallback from "../LoadFallback/LoadFallback.jsx";
 
 const Recipes = React.lazy(() => import("../pages/Recipes/Recipes.jsx"));
 
 function App() {
-	const recipeInit = useState("");
-	const recipeCat = useState("");
+	const recipeData = useState({ initial: "", category: "" });
 	const recipeName = useState("");
 	const search = useState("");
 
+	const [recipe, setRecipe] = recipeData;
+
+	useEffect(() => {
+		// Get data from session storage
+		// Default state value is used if element does not exist
+		setRecipe((prev) => {
+			return {
+				...prev,
+				initial:
+					JSON.parse(window.sessionStorage.getItem("initial")) ||
+					recipe.initial,
+				category:
+					JSON.parse(window.sessionStorage.getItem("category")) ||
+					recipe.category,
+			};
+		});
+	}, []);
+
 	return (
-		<QueryContext.Provider
-			value={{ recipeInit, recipeCat, recipeName, search }}
-		>
+		<QueryContext.Provider value={{ recipeData, recipeName, search }}>
 			<div className={`${Appstyle.App} container-fluid`}>
 				<Router>
 					<header className={`${Appstyle.Header}`}>
@@ -27,12 +42,8 @@ function App() {
 					<main className={`${Appstyle.MainBody}`}>
 						<Suspense fallback={<LoadFallback />}>
 							<Routes>
-								<Route exact path="/" element={<QueryForm state={state} />} />
-								<Route
-									exact
-									path="/recipes/*"
-									element={<Recipes state={state} />}
-								/>
+								<Route exact path="/" element={<QueryForm />} />
+								<Route exact path="/recipes/*" element={<Recipes />} />
 								<Route
 									exact
 									path="/how-it-works"
