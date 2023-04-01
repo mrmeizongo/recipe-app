@@ -102,10 +102,6 @@ const Recipes = () => {
 	// From context provider
 	const [recipeName, setRecipeName] = useContext(QueryContext)["recipeName"];
 
-	// useEffect(() => {
-	// 	console.log(recipeName);
-	// }, [recipeName]);
-
 	return (
 		<div className={`${RecipesStyle.Body} row mt-1`}>
 			<div className="col-12 col-lg-3">
