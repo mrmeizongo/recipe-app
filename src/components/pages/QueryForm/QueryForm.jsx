@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import QueryFormStyle from "./QueryFormStyle.module.css";
 import ChefIcon from "../../../assets/chef-icon.png";
+import QueryContext from "../../../Context/QueryContext";
 import { recipeInitials, getRecipeNames } from "../../../helper/RecipeHelper";
 
 const SimpleSelect = ({ placeHolder, onChange, content }) => {
@@ -21,13 +22,18 @@ const SimpleSelect = ({ placeHolder, onChange, content }) => {
 	);
 };
 
-const QueryForm = ({ handleRecipeNames }) => {
+const QueryForm = ({ setWebData }) => {
 	const [formData, changeFormData] = useState({
 		initial: "",
 		name: "",
 		showRecipeName: false,
 		showSubmit: false,
 	});
+	const webData = useContext(QueryContext);
+
+	useEffect(() => {
+		console.log(webData);
+	}, [webData]);
 
 	const navigate = useNavigate();
 
@@ -98,7 +104,7 @@ const QueryForm = ({ handleRecipeNames }) => {
 					recipeCategory: messageBody,
 					recipeList: data.body,
 				};
-				handleRecipeNames(recipeObj);
+				setWebData(recipeObj);
 				window.sessionStorage.setItem("recipe", recipeObj.recipeCategory);
 				navigate(
 					`/recipes/${recipeObj.recipeCategory.initial}/${recipeObj.recipeCategory.category}`

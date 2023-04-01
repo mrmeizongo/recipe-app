@@ -23,28 +23,23 @@ const Option = ({ title, removeFocus }) => {
 
 const Options = ({ removeFocus }) => {
 	useEffect(() => {
-		document
-			.getElementsByTagName("main")[0]
-			.addEventListener("click", removeFocus);
+		document.querySelector("main").addEventListener("click", removeFocus);
 
 		const cleanUp = () => {
-			document
-				.getElementsByTagName("main")[0]
-				.removeEventListener("click", removeFocus);
+			document.querySelector("main").removeEventListener("click", removeFocus);
 		};
 		return cleanUp;
 	});
 
-	// const optionsArray =
-	// 	userInput.length > 0
-	// 		? getRecipeNames(userInput[0]).filter((recipeName) => {
-	// 				return recipeName.includes(userInput.toLowerCase());
-	// 		  })
-	// 		: recipeInitials;
+	const optionsArray =
+		userInput.length > 0
+			? getRecipeNames(userInput[0]).filter((recipeName) => {
+					return recipeName.includes(userInput.toLowerCase());
+			  })
+			: recipeInitials;
 
 	return (
 		<div className={`${OptionsStyle.Main} container`}>
-			{/* 
 			<div className="d-flex flex-row justify-content-center flex-wrap">
 				{optionsArray.length > 0 ? (
 					optionsArray.map((value, index) => {
@@ -55,7 +50,7 @@ const Options = ({ removeFocus }) => {
 				) : (
 					<h5>No results!</h5>
 				)}
-			</div> */}
+			</div>
 			<h5>Options here</h5>
 		</div>
 	);
