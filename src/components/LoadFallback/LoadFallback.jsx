@@ -5,7 +5,7 @@ const LoadFallback = () => {
 		<div
 			style={{
 				width: "100%",
-				height: "50svh",
+				minHeight: "250px",
 			}}
 			className="d-flex flex-row align-items-center justify-content-center gap-2 bg-white"
 		>

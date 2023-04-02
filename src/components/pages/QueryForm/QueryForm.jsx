@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import QueryFormStyle from "./QueryFormStyle.module.css";
 import ChefIcon from "../../../assets/chef-icon.png";

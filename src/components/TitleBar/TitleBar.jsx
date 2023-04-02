@@ -18,14 +18,6 @@ const Collapse = ({ className, HandleCollapse }) => {
 		return cleanUp;
 	});
 
-	function HandleButton(e) {
-		try {
-			HandleCollapse(e);
-		} finally {
-			return false;
-		}
-	}
-
 	return (
 		<div className={className}>
 			<Link className={TitleStyle.Link} to={"/about"} onClick={HandleCollapse}>
@@ -52,6 +44,11 @@ const Collapse = ({ className, HandleCollapse }) => {
 const TitleBar = () => {
 	const [inputFocus, setInputFocus] = useState(false);
 	const [collapse, setCollapse] = useState(false);
+	const [query, setQuery] = useState("");
+
+	function handleOnChange(e) {
+		setQuery(e.target.value);
+	}
 
 	function setFocus(e) {
 		e.preventDefault();
@@ -64,10 +61,15 @@ const TitleBar = () => {
 		setInputFocus(false);
 	}
 
-	function HandleCollapse(e) {
+	function handleCollapse(e) {
 		e.preventDefault();
 		if (inputFocus) setInputFocus(false);
 		setCollapse((prev) => !prev);
+	}
+
+	function handleHomeLink() {
+		setInputFocus(false);
+		setQuery("");
 	}
 
 	return (
@@ -79,6 +81,7 @@ const TitleBar = () => {
 					<Link
 						to="/"
 						className={`${TitleStyle.Link} d-flex align-items-center justify-content-center gap-2`}
+						onClick={handleHomeLink}
 					>
 						<i className="fa-solid fa-utensils fa-xl"></i>
 						<h4 className="d-none d-md-inline">Recipes</h4>
@@ -88,26 +91,33 @@ const TitleBar = () => {
 				<div
 					className={`${TitleStyle.Search} d-flex flex-row align-items-center justify-content-start mx-2 mx-lg-5 w-50`}
 				>
-					<Search inputFocus={inputFocus} setFocus={setFocus} />
+					<Search
+						handleOnChange={handleOnChange}
+						inputFocus={inputFocus}
+						setFocus={setFocus}
+						query={query}
+					/>
 				</div>
 
 				<div className="d-block position-relative">
 					<button
 						className={TitleStyle.CollapseButton}
 						type="button"
-						onClick={HandleCollapse}
+						onClick={handleCollapse}
 					>
 						<i className="fa-solid fa-ellipsis fa-xl"></i>
 					</button>
 					{collapse ? (
 						<Collapse
 							className={`${TitleStyle.Collapse} d-flex flex-column justify-content-between`}
-							HandleCollapse={HandleCollapse}
+							HandleCollapse={handleCollapse}
 						/>
 					) : null}
 				</div>
 			</nav>
-			{inputFocus ? <Options removeFocus={removeFocus} /> : null}
+			{inputFocus ? (
+				<Options query={query} setQuery={setQuery} removeFocus={removeFocus} />
+			) : null}
 		</>
 	);
 };

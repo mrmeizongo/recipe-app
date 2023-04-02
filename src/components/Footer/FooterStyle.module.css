@@ -1,4 +1,3 @@
 .Footer {
-	position: absolute;
-	inset: auto 0 0 0;
+	z-index: 15;
 }

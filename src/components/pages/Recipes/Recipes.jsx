@@ -11,7 +11,7 @@ const Recipe = ({
 	setCurrentSelection,
 }) => {
 	// From context provider
-	const [recipeData] = useContext(QueryContext)["recipeData"];
+	const [recipeData, setRecipeData] = useContext(QueryContext)["recipeData"];
 
 	function HandleOnClick(e) {
 		e.preventDefault();
@@ -38,7 +38,6 @@ const Recipe = ({
 			})
 				.then((response) => response.json())
 				.then((result) => {
-					console.log(result);
 					// set states
 					setCurrentRecipe(result.body);
 				});
@@ -58,7 +57,7 @@ const Recipe = ({
 			} border rounded-3 py-2 px-3`}
 			onClick={HandleOnClick}
 		>
-			<>{children}</>
+			{children}
 		</button>
 	);
 };
@@ -69,7 +68,7 @@ const Recipes = () => {
 	const [currentRecipe, setCurrentRecipe] = useState({});
 
 	// From context provider
-	const [recipeData, setRecipeData] = useContext(QueryContext)["recipeData"];
+	const [recipeData] = useContext(QueryContext)["recipeData"];
 
 	useEffect(() => {
 		// Code looks this way due to the way the main recipe json object is structured.
@@ -99,9 +98,6 @@ const Recipes = () => {
 			.catch((error) => console.error("Error: ", error));
 	}, [recipeData]);
 
-	// From context provider
-	const [recipeName, setRecipeName] = useContext(QueryContext)["recipeName"];
-
 	return (
 		<div className={`${RecipesStyle.Body} row mt-1`}>
 			<div className="col-12 col-lg-3">
@@ -126,7 +122,9 @@ const Recipes = () => {
 					)}
 				</div>
 			</div>
-			<div className="col-12 col-lg-9 bg-light rounded-4 p-3">
+			<div
+				className={`${RecipesStyle.Listing} col-12 col-lg-9 bg-light rounded-4 p-3`}
+			>
 				<RecipeListing currentRecipe={currentRecipe} />
 				{/* Show a fallback while recipe is loading. Also when recipe page opens let page autofill from url. */}
 				{/* Change url format to recipes?B?babka */}
