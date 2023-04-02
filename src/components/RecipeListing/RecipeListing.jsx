@@ -1,5 +1,4 @@
 import React from "react";
-import Query from "../pages/QueryForm/Query";
 import ListingStyle from "./ListingStyle.module.css";
 
 const RecipeListing = ({ currentRecipe }) => {

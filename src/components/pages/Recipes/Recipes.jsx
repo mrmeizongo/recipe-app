@@ -11,7 +11,7 @@ const Recipe = ({
 	setCurrentSelection,
 }) => {
 	// From context provider
-	const [recipeData, setRecipeData] = useContext(QueryContext)["recipeData"];
+	const [recipeData, _] = useContext(QueryContext)["recipeData"];
 
 	function HandleOnClick(e) {
 		e.preventDefault();
@@ -28,7 +28,7 @@ const Recipe = ({
 				recipeName: selection,
 			};
 			// fetch request to server
-			fetch(`http://192.168.1.165:8080/projects/recipe`, {
+			fetch(`https://www.meizongo.io/projects/recipe`, {
 				method: "POST",
 				mode: "cors",
 				headers: {
@@ -80,7 +80,7 @@ const Recipes = () => {
 				recipeData.category[0].toLowerCase() + recipeData.category.substring(1),
 		};
 
-		fetch("http://192.168.1.165:8080/projects/recipe", {
+		fetch("https://www.meizongo.io/projects/recipe", {
 			method: "POST",
 			mode: "cors",
 			headers: {
