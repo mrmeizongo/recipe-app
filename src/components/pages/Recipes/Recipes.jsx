@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import RecipesStyle from "./RecipesStyle.module.css";
 import RecipeListing from "../../RecipeListing/RecipeListing";
-import QueryContext from "../../../context/QueryContext";
+import QueryContext from "../../../Context/QueryContext";
 import LoadFallback from "../../LoadFallback/LoadFallback";
 
 const Recipe = ({

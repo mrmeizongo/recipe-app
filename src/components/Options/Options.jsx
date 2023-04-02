@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import OptionsStyle from "./OptionsStyle.module.css";
-import QueryContext from "../../context/QueryContext.jsx";
+import QueryContext from "../../Context/QueryContext.jsx";
 import { recipeInitials, getRecipeNames } from "../../helper/RecipeHelper";
 
 const Option = ({ title, removeFocus, query, setQuery }) => {

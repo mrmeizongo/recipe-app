@@ -2,7 +2,7 @@ import React, { Suspense, useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoadFallback from "../LoadFallback/LoadFallback.jsx";
 import Appstyle from "./AppStyle.module.css";
-import QueryContext from "../../context/QueryContext.jsx";
+import QueryContext from "../../Context/QueryContext.jsx";
 
 const Recipes = React.lazy(() => import("../pages/Recipes/Recipes.jsx"));
 const TitleBar = React.lazy(() => import("../TitleBar/TitleBar.jsx"));
