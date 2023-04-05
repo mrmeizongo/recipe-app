@@ -2,11 +2,20 @@ import React, { useState, useContext, useEffect } from "react";
 import RecipesStyle from "./RecipesStyle.module.css";
 import RecipeListing from "../../RecipeListing/RecipeListing";
 import QueryContext from "../../../Context/QueryContext";
-import LoadFallback from "../../LoadFallback/LoadFallback";
+import LoadFallback from "../../LoadFallback/LoadFallback.jsx";
+
+const Loading = () => {
+	return (
+		<div className="d-flex align-items-center justify-content-center h-100">
+			<i className="fa-solid fa-spinner fa-spin fa-2xl"></i>
+		</div>
+	);
+};
 
 const Recipe = ({
 	children,
 	currentSelection,
+	setLoading,
 	setCurrentRecipe,
 	setCurrentSelection,
 }) => {
@@ -19,6 +28,7 @@ const Recipe = ({
 
 		if (currentSelection == "" || currentSelection != selection) {
 			setCurrentSelection(selection);
+			setLoading(true);
 			const messageBody = {
 				type: "recipe-single",
 				...recipeData,
@@ -28,7 +38,7 @@ const Recipe = ({
 				recipeName: selection,
 			};
 			// fetch request to server
-			fetch(`https://www.meizongo.io/projects/recipe`, {
+			fetch(`http://192.168.1.165:8080/projects/recipe`, {
 				method: "POST",
 				mode: "cors",
 				headers: {
@@ -39,6 +49,7 @@ const Recipe = ({
 				.then((response) => response.json())
 				.then((result) => {
 					// set states
+					setLoading(false);
 					setCurrentRecipe(result.body);
 				});
 		} else {
@@ -66,6 +77,7 @@ const Recipes = () => {
 	const [currentSelection, setCurrentSelection] = useState("");
 	const [recipeNameList, setRecipeNameList] = useState([]);
 	const [currentRecipe, setCurrentRecipe] = useState({});
+	const [loading, setLoading] = useState(false);
 
 	// From context provider
 	const [recipeData] = useContext(QueryContext)["recipeData"];
@@ -80,7 +92,7 @@ const Recipes = () => {
 				recipeData.category[0].toLowerCase() + recipeData.category.substring(1),
 		};
 
-		fetch("https://www.meizongo.io/projects/recipe", {
+		fetch("http://192.168.1.165:8080/projects/recipe", {
 			method: "POST",
 			mode: "cors",
 			headers: {
@@ -109,6 +121,7 @@ const Recipes = () => {
 							return (
 								<Recipe
 									key={index}
+									setLoading={setLoading}
 									currentSelection={currentSelection}
 									setCurrentSelection={setCurrentSelection}
 									setCurrentRecipe={setCurrentRecipe}
@@ -125,7 +138,11 @@ const Recipes = () => {
 			<div
 				className={`${RecipesStyle.Listing} col-12 col-lg-9 bg-light rounded-4 p-3`}
 			>
-				<RecipeListing currentRecipe={currentRecipe} />
+				{loading ? (
+					<Loading />
+				) : (
+					<RecipeListing currentRecipe={currentRecipe} />
+				)}
 				{/* Show a fallback while recipe is loading. Also when recipe page opens let page autofill from url. */}
 				{/* Change url format to recipes?B?babka */}
 			</div>
