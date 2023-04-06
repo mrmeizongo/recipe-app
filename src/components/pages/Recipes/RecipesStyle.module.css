@@ -1,13 +1,32 @@
-.Title {
+.Body {
+	--bg-color: hsl(0, 0%, 94%);
+	min-height: inherit;
 }
 
-.Body {
-	min-height: inherit;
+.Title::before {
+	content: "";
+	position: absolute;
+	width: 30px;
+	height: 5px;
+	top: 0;
+	left: 0;
+	background-color: hsl(207, 100%, 40%);
+}
+
+.Title::after {
+	content: "";
+	position: absolute;
+	width: 5px;
+	height: 30px;
+	top: 0;
+	left: 0;
+	background-color: red;
 }
 
 .Results {
 	max-height: 50svh;
-	overflow-y: scroll;
+	overflow: hidden;
+	overflow-y: auto;
 	position: relative;
 }
 
@@ -19,10 +38,12 @@
 .Listing {
 	box-shadow: 0 0 2px grey;
 	z-index: 10;
+	min-height: 50svh;
+	background-color: var(--bg-color);
 }
 
 @media (min-width: 992px) {
 	.Results {
-		max-height: 90dvh;
+		max-height: 90svh;
 	}
 }

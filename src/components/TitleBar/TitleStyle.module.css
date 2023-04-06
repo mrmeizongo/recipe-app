@@ -16,6 +16,7 @@
 
 .Search {
 	border: 1px solid hsl(0, 0%, 90%);
+	background-color: white;
 	border-radius: 30px;
 	padding-left: 10px;
 }

@@ -5,7 +5,7 @@ const RecipeListing = ({ currentRecipe }) => {
 	if (currentRecipe[Object.keys(currentRecipe)[0]]?.title) {
 		return (
 			<div>
-				<p className="mb-2 text-decoration-underline">
+				<p className="text-decoration-underline">
 					<strong>{currentRecipe[Object.keys(currentRecipe)[0]].title}</strong>
 				</p>
 				<div
@@ -54,7 +54,13 @@ const RecipeListing = ({ currentRecipe }) => {
 				</div>
 			</div>
 		);
-	} else return null;
+	} else
+		return (
+			<div className="d-flex flex-column align-items-start w-100 h-100 gap-1">
+				<h4>Selected recipe will be displayed here.</h4>
+				<p>Search over 4,000 recipes from all around the world.</p>
+			</div>
+		);
 };
 
 export default RecipeListing;

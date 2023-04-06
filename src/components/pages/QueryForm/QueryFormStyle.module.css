@@ -5,6 +5,8 @@
 
 .Query {
 	width: max-content;
+	background-color: hsl(0, 0%, 94%);
+	box-shadow: 0 0 2px grey;
 }
 
 .Query strong {

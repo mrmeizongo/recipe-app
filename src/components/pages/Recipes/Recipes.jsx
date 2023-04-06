@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import RecipesStyle from "./RecipesStyle.module.css";
 import RecipeListing from "../../RecipeListing/RecipeListing";
 import QueryContext from "../../../Context/QueryContext";
@@ -6,7 +7,7 @@ import LoadFallback from "../../LoadFallback/LoadFallback.jsx";
 
 const Loading = () => {
 	return (
-		<div className="d-flex align-items-center justify-content-center h-100">
+		<div className="d-flex flex-column align-items-center justify-content-center h-100">
 			<i className="fa-solid fa-spinner fa-spin fa-2xl"></i>
 		</div>
 	);
@@ -38,7 +39,7 @@ const Recipe = ({
 				recipeName: selection,
 			};
 			// fetch request to server
-			fetch(`http://192.168.1.165:8080/projects/recipe`, {
+			fetch(`https://www.meizongo.io/projects/recipe`, {
 				method: "POST",
 				mode: "cors",
 				headers: {
@@ -51,6 +52,11 @@ const Recipe = ({
 					// set states
 					setLoading(false);
 					setCurrentRecipe(result.body);
+				})
+				.catch((error) => {
+					setLoading(false);
+					console.error(error);
+					console.log("Please try again later.");
 				});
 		} else {
 			setCurrentRecipe({});
@@ -64,7 +70,7 @@ const Recipe = ({
 			className={`${RecipesStyle.Button} ${
 				currentSelection == children
 					? "bg-secondary text-light"
-					: "bg-none text-dark"
+					: "bg-light text-dark"
 			} border rounded-3 py-2 px-3`}
 			onClick={HandleOnClick}
 		>
@@ -79,10 +85,16 @@ const Recipes = () => {
 	const [currentRecipe, setCurrentRecipe] = useState({});
 	const [loading, setLoading] = useState(false);
 
+	const navigate = useNavigate();
+
 	// From context provider
 	const [recipeData] = useContext(QueryContext)["recipeData"];
 
 	useEffect(() => {
+		if (recipeData.initial == "" || recipeData.category == "") {
+			navigate("/");
+			return;
+		}
 		// Code looks this way due to the way the main recipe json object is structured.
 		// These recipe objects are where all the recipes are stored.
 		const messageBody = {
@@ -92,7 +104,7 @@ const Recipes = () => {
 				recipeData.category[0].toLowerCase() + recipeData.category.substring(1),
 		};
 
-		fetch("http://192.168.1.165:8080/projects/recipe", {
+		fetch("https://www.meizongo.io/projects/recipe", {
 			method: "POST",
 			mode: "cors",
 			headers: {
@@ -116,6 +128,9 @@ const Recipes = () => {
 				<div
 					className={`${RecipesStyle.Results} d-flex flex-row flex-lg-column flex-wrap flex-lg-nowrap align-items-lg-start p-3 gap-1`}
 				>
+					<h4
+						className={RecipesStyle.Title}
+					>{`${recipeData.initial} - ${recipeData.category}`}</h4>
 					{recipeNameList.length > 0 ? (
 						recipeNameList.map((element, index) => {
 							return (
@@ -135,9 +150,7 @@ const Recipes = () => {
 					)}
 				</div>
 			</div>
-			<div
-				className={`${RecipesStyle.Listing} col-12 col-lg-9 bg-light rounded-4 p-3`}
-			>
+			<div className={`${RecipesStyle.Listing} col-12 col-lg-9 rounded-4 p-3`}>
 				{loading ? (
 					<Loading />
 				) : (

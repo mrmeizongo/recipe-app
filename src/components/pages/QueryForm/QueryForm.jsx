@@ -131,7 +131,7 @@ const QueryForm = () => {
 			/>
 			<div
 				className={`${QueryFormStyle.Query} d-flex flex-column justify-content-center
-             align-items-start rounded-5 shadow p-4 gap-3`}
+             align-items-start rounded-5 p-4 gap-3`}
 			>
 				<h2>
 					Search over <strong>4k Recipes</strong>.
@@ -145,20 +145,20 @@ const QueryForm = () => {
 						name="initial"
 					/>
 
-					{formView.showRecipeCategory ? (
+					{formView.showRecipeCategory && (
 						<SimpleSelect
 							placeHolder={`Category starting with ${recipeData.initial}`}
 							onChange={handleOnNameChange}
 							content={getRecipeNames(recipeData.initial)}
 							name="category"
 						/>
-					) : null}
+					)}
 
-					{formView.showSubmitButton ? (
+					{formView.showSubmitButton && (
 						<button type="submit" className="btn btn-danger rounded-5">
 							See recipes
 						</button>
-					) : null}
+					)}
 				</form>
 			</div>
 		</section>

@@ -1,5 +1,6 @@
 .Footer {
 	position: absolute;
+	background-color: hsl(0, 0%, 94%);
 	inset: auto 0;
-	z-index: 15;
+	z-index: 5;
 }
